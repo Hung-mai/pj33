@@ -1,12 +1,12 @@
 const express = require('express');
 const staffAPI = express.Router();
 const staffController = require('../../modules/staff/controller');
-const postMiddleware = require('../../middlewares/staff/post');
+const staffInfoValidate = require('../../middlewares/staff/staffInfoValidate');
 
 staffAPI.get('/', staffController.getAll)
     .get('/:id', staffController.getById)
-    .post('/', postMiddleware, staffController.store)
-    .put('/', staffController.update)
-    .delete('/', staffController.delete);
+    .post('/', staffInfoValidate, staffController.store)
+    .put('/:id', staffInfoValidate, staffController.update)
+    .delete('/:id', staffController.delete);
 
 module.exports = staffAPI;

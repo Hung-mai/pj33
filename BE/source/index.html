@@ -9,21 +9,39 @@
 </head>
 
 <body>
-    Hello World
+    <button onclick="post()">Add</button>
+    <button onclick="put()">Update</button>
     <script>
-        fetch('http://localhost:3000/api/staff', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                staffName: "Cringe",
-                hospitalId: 1,
-                dateOfBirth: new Date(),
-                phone: "3333333333",
-                address: "Hell"
-            })
-        }).then(response => response.json()).then(data => console.log(data));
+        function post() {
+            fetch('http://localhost:3000/api/staff', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    staffName: "Cringe",
+                    hospitalId: 1,
+                    dateOfBirth: new Date(),
+                    phone: "3333333333",
+                    address: "Hell"
+                })
+            }).then(response => response.json()).then(data => console.log(data));
+        }
+        function put() {
+            fetch('http://localhost:3000/api/staff/2', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    staffName: "Cringe",
+                    hospitalId: 1,
+                    dateOfBirth: new Date(),
+                    phone: "3333333333",
+                    address: "Hell"
+                })
+            }).then(response => response.json()).then(data => console.log(data));
+        }
     </script>
 </body>
 
