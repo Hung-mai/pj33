@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 
 // constructor
-const Patient = function(patient) {
+export const Patient = function(patient) {
     this.hospitalId = patient.hospitalId;
     this.roomId = patient.roomId;
     this.patientName = patient.patientName;

@@ -1,4 +1,4 @@
-const Patient = require("BE/source/models/entities/patient.entity.js");
+const Patient = require("BE/source/models/entities/Patient");
 
 // Create and Save a new Patient
 exports.create = (req, res) => {
@@ -15,13 +15,13 @@ exports.create = (req, res) => {
     roomId: req.body.roomId,
     patientName: req.body.patientName,
     identifyNumber: req.body.identifyNumber,
-    healthInsuranceNumber = req.body.healthInsuranceNumber || '',
-    address = req.body.address || '',
-    phone = req.body.phone || '',
-    dob = req.body.dob,
-    sex = req.body.sex,
-    startTime = req.body.startTime,
-    endTime = req.body.endTime || ''
+    healthInsuranceNumber: req.body.healthInsuranceNumber || '',
+    address: req.body.address || '',
+    phone: req.body.phone || '',
+    dob: req.body.dob,
+    sex: req.body.sex,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime || ''
   });
 
   // Save Patient in the database
@@ -48,7 +48,7 @@ exports.getAll = (res) => {
 };
 
 // Find a single Patient by Id
-exports.findOne = (req, res) => {
+exports.getOne = (req, res) => {
   Patient.findById(req.params.patientId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {

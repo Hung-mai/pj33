@@ -1,4 +1,4 @@
-USE project3transfertransfer;
+USE project3;
 CREATE TABLE Hospital (
     hospitalId int NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
