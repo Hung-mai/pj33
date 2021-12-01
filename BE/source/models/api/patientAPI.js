@@ -1,11 +1,12 @@
 const express = require('express');
+const patientInfoValidate = require('../../middlewares/patient/patientInfoValidate');
 const patientAPI = express.Router();
 const patientController = require('../../modules/patients/controller');
 
-staffAPI.get('/', patientController.getAll)
+patientAPI.get('/', patientController.getAll)
     .get('/:id', patientController.getOne)
-    // .post('/', staffInfoValidate, staffController.store)
-    // .put('/:id', staffInfoValidate, staffController.update)
+    .post('/', patientInfoValidate, patientController.create)
+    .put('/:id', patientInfoValidate, patientController.update)
     .delete('/:id', patientController.delete);
 
 module.exports = patientAPI;
