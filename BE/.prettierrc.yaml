@@ -7,6 +7,6 @@ tabWidth: 2
 trailingComma: all
 
 overrides:
-  - files: "*.sol"
+  - files: "*.js"
     options:
       tabWidth: 4
