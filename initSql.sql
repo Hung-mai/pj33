@@ -74,6 +74,7 @@ CREATE TABLE Patient (
     sex varchar(20),
     startTime date,
     endTime date,
+    level int,
     PRIMARY KEY (patientId),
     FOREIGN KEY (hospitalId) REFERENCES Hospital(hospitalId),
     FOREIGN KEY (roomId) REFERENCES Room(roomId)
