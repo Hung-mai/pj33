@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/login" method="post">
+        <div>
+            <label for="inputUsername">Username
+                <input type="text" name="username" id="inputUsername" autocomplete="username">
+            </label>
+        </div>
+        <div>
+            <label for="inputPassword">Password
+                <input type="password" name="password" id="inputPassword" autocomplete="current-password">
+            </label>
+        </div>
+        <div>
+            <button type="submit" id="btnLogin">Đăng nhập</button>
+        </div>
+    </form>
+    <script>
+        function $(id) {
+            return document.getElementById(id);
+        }
+        $('btnLogin').addEventListener('click', async (e) => {
+            e.preventDefault();
+            let response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: $('inputUsername').value,
+                    password: $('inputPassword').value
+                })
+            })
+            let data = await response.json();
+            console.log(data);
+            if (data.status == 200) {
+                window.location.href = 'http://localhost:3000/';
+            }
+        })
+    </script>
+</body>
+
+</html>
