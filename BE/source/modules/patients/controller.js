@@ -1,108 +1,104 @@
 const db = require('../../models/db');
+const Patient = require('../patients/model');
 
-// Create and Save a new Patient
-exports.create = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: 'Content can not be empty!',
-    });
-  }
+module.exports = {
+    // Create and Save a new Patient
+  create: async (req, res) => {
+    // Validate request
+    if (!req.body) {
+      res.status(400).send({
+        message: 'Content can not be empty!',
+      });
+    }
 
-  let query = `INSERT INTO patient (hospitalId, roomId, patientName, identifyNumber, healthInsuranceNumber, address, phone, dob, sex, startTime) VALUES (${req.body.hospitalId}, '${req.body.roomId}', '${req.body.patientName}', '${req.body.identifyNumber}', '${req.body.healthInsuranceNumber}', '${req.body.address}', '${req.body.phone}','${req.body.dob}', '${req.body.sex}', '${req.body.startTime}');`;
-  db.query(query, (error, response) => {
-    if (error) {
+    try {
+      let result = await Patient.createPatient(req.body);
+      res.status(200).send("Create patient successfully");
+    } catch (error) {
+        res.status(400).send(error);
+    }
+  },
+
+  // Retrieve all Patients from the database (with condition).
+  getAll: async (req, res) => {
+    try {
+      let result = await Patient.getAll();
+      console.log(result);
+      res.send(result);
+    } catch (error) {
       res.status(400).send(error);
-    } else {
-      res.status(200).send({
-        status: 'Success',
+      // res.status(500).send({
+      //   message: error.message || 'Some error occurred while retrieving Patients.',
+      // });
+    }
+  },
+
+  // Find a single Patient by Id
+  getOne: async (req, res) => {
+    try {
+      let result = await Patient.getOneById(req.params.id);
+      res.send(result);
+    } catch (error) {
+        res.status(400).send(error);
+        if (error.kind === 'not_found') {
+          res.status(404).send({
+            message: `Not found Patient with id ${req.params.patientId}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: 'Error retrieving Patient with id ' + req.params.patientId,
+          });
+        }
+    }
+  },
+
+  // Update a Patient identified by the id in the request
+  update: async (req, res) => {
+    // Validate Request
+    if (!req.body) {
+      res.status(400).send({
+        message: 'Content can not be empty!',
       });
     }
-  });
-};
 
-// Retrieve all Patients from the database (with condition).
-exports.getAll = (req, res) => {
-  let query = `SELECT * FROM patient`;
-  db.query(query, (error, response) => {
-    if (error) {
-      res.status(400).send(error);
-      res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving Patients.',
-      });
-    } else {
-      res.send(response);
+    try {
+      let result = await Patient.updatePatient(req.params.id, req.body);
+      res.status(200).send("Update patient successfully");
+    } catch (error) {
+        res.status(400).send(error);
+        if (error.kind === 'not_found') {
+          res.status(404).send({
+            message: `Not found Patient with id ${req.params.id}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: 'Error updating Patient with id ' + req.params.id,
+          });
+        }
     }
-  });
-};
+  },
 
-// Find a single Patient by Id
-exports.getOne = (req, res) => {
-  let query = `SELECT * FROM patient WHERE patientId = ${req.params.id}`;
-  db.query(query, (error, response) => {
-    if (error) {
-      if (error.kind === 'not_found') {
-        res.status(404).send({
-          message: `Not found Patient with id ${req.params.patientId}.`,
-        });
+  // Delete a Patient with the specified id in the request
+  delete:  (req, res) => {
+    let query = `DELETE FROM patient WHERE (patientId = ${req.params.id})`;
+    db.query(query, (error, response) => {
+      if (error) {
+        if (err.kind === 'not_found') {
+          res.status(404).send({
+            message: `Not found Patient with id ${req.params.id}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: 'Could not delete Patient with id ' + req.params.id,
+          });
+        }
       } else {
-        res.status(500).send({
-          message: 'Error retrieving Patient with id ' + req.params.patientId,
+        res.status(200).send({
+          status: 'Success',
         });
       }
-    } else {
-      res.send(response);
-    }
-  });
-};
-
-// Update a Patient identified by the id in the request
-exports.update = (req, res) => {
-  // Validate Request
-  if (!req.body) {
-    res.status(400).send({
-      message: 'Content can not be empty!',
     });
-  }
+  },
+}
 
-  let query = `UPDATE patient SET hospitalId = ${req.body.hospitalId}, roomId = '${req.body.roomId}', patientName = '${req.body.patientName}', identifyNumber = '${req.body.identifyNumber}', healthInsuranceNumber = '${req.body.healthInsuranceNumber}', address = '${req.body.address}', phone = '${req.body.phone}', dob = '${req.body.dob}', sex = '${req.body.sex}', startTime = '${req.body.startTime}', endTime = '${req.body.endTime}' WHERE (patientId = ${req.params.id})`;
-  db.query(query, (error, response) => {
-    if (error) {
-      if (error.kind === 'not_found') {
-        res.status(404).send({
-          message: `Not found Patient with id ${req.params.id}.`,
-        });
-      } else {
-        res.status(500).send({
-          message: 'Error updating Patient with id ' + req.params.id,
-        });
-      }
-    } else {
-      res.status(200).send({
-        status: 'Success',
-      });
-    }
-  });
-};
 
-// Delete a Patient with the specified id in the request
-exports.delete = (req, res) => {
-  let query = `DELETE FROM patient WHERE (patientId = ${req.params.id})`;
-  db.query(query, (error, response) => {
-    if (error) {
-      if (err.kind === 'not_found') {
-        res.status(404).send({
-          message: `Not found Patient with id ${req.params.id}.`,
-        });
-      } else {
-        res.status(500).send({
-          message: 'Could not delete Patient with id ' + req.params.id,
-        });
-      }
-    } else {
-      res.status(200).send({
-        status: 'Success',
-      });
-    }
-  });
-};
