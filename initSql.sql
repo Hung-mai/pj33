@@ -1,3 +1,5 @@
+DROP DATABASE project3;
+CREATE DATABASE IF NOT EXISTS project3;
 USE project3;
 CREATE TABLE Hospital (
     hospitalId int NOT NULL AUTO_INCREMENT,
@@ -7,16 +9,36 @@ CREATE TABLE Hospital (
     PRIMARY KEY (hospitalId)
 );
 
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `rooms`) VALUES ('1', 'Sở y tế', `Hà Nội`, `0`);
+
+CREATE TABLE Role (
+    roleId int NOT NULL AUTO_INCREMENT,
+    roleName varchar(50) NOT NULL,
+    PRIMARY KEY (roleId)
+);
+
+INSERT INTO `project3`.`role` (`roleId`, `roleName`) VALUES ('1', 'Nhân viên Sở y tế');
+INSERT INTO `project3`.`role` (`roleId`, `roleName`) VALUES ('2', 'Y tá');
+INSERT INTO `project3`.`role` (`roleId`, `roleName`) VALUES ('3', 'Bác sĩ');
+INSERT INTO `project3`.`role` (`roleId`, `roleName`) VALUES ('4', 'Nhân viên điểm xét nghiệm');
+INSERT INTO `project3`.`role` (`roleId`, `roleName`) VALUES ('5', 'Quản lý cơ sở y tế');
+
 CREATE TABLE Staff (
     staffId int NOT NULL AUTO_INCREMENT,
     hospitalId int NOT NULL,
+    roleId int NOT NULL,
     staffName varchar(255) NOT NULL,
     phone char(20) NOT NULL,
     dob date NOT NULL,
+    username varchar(50) NOT NULL,
+    password varchar(50) NOT NULL,
     address varchar(255) NOT NULL,
     PRIMARY KEY (staffId),
-    FOREIGN KEY (hospitalId) REFERENCES Hospital(hospitalId)
+    FOREIGN KEY (hospitalId) REFERENCES Hospital(hospitalId),
+    FOREIGN KEY (roleId) REFERENCES Role(roleId)
 );
+
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '1', 'Nguyễn Văn A', '000', '1988-02-03', 'ANV000', '000', 'Hà Nam');
 
 CREATE TABLE Room (
     roomId int NOT NULL AUTO_INCREMENT,
