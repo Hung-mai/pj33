@@ -12,6 +12,6 @@ module.exports = function (app) {
         .use('/api', api)
         .use('/', (req, res) => res.sendFile(path.resolve(__dirname, '../index.html')))
         .use((req, res) => {
-            res.redirect('/'); // Khi đường dẫn không tồn tại, redirect về home, vẫn phải đi qua authorizeMiddleware
+            res.status(404).send("Not found");
         })
 };
