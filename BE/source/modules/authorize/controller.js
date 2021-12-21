@@ -32,7 +32,7 @@ module.exports = {
         } catch (error) {
             res.status(500).send({
                 status: 500,
-                error: "Internal Server Error"
+                error: "Internal Server ZZZZZZZZ"
             })
         }
     }

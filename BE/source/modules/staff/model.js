@@ -126,9 +126,10 @@ class Staff {
                 }
             }
         } catch (error) {
+            console.log(error);
             return {
                 status: 500,
-                message: "Internal Server Error"
+                message: error
             }
         }
     }
