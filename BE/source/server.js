@@ -1,10 +1,13 @@
 let express = require('express');
 let session = require('express-session');
+let cors = require('cors');
 
 let app = express();
 let port = process.env.PORT || 3000;
 
-app.use(express.json(), express.urlencoded({ extended: true }), session({
+app
+.use(cors()) // Using cors allow all request from browser
+.use(express.json(), express.urlencoded({ extended: true }), session({
     key: 'cookey',
     secret: 'this_is_not_a_secrete',
     resave: false,
