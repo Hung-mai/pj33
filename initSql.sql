@@ -9,7 +9,7 @@ CREATE TABLE Hospital (
     PRIMARY KEY (hospitalId)
 );
 
-INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `rooms`) VALUES ('1', 'Sở y tế', `Hà Nội`, `0`);
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `rooms`) VALUES ('1', 'Sở y tế', 'Hà Nội', 0);
 
 CREATE TABLE Role (
     roleId int NOT NULL AUTO_INCREMENT,
