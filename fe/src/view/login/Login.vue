@@ -25,6 +25,7 @@
               name="username"
               id="inpUsername"
               placeholder="Username"
+              v-model="username"
             />
           </div>
         </div>
@@ -37,6 +38,7 @@
               id="inpPassword"
               autocomplete="new-password"
               placeholder="Password"
+              v-model="password"
             />
           </div>
         </div>
@@ -78,7 +80,6 @@ export default {
             password: this.password,
           }),
         });
-        console.log(response);
         let data = await response.json();
         console.log(data);
       } catch (error) {
