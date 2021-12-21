@@ -1,4 +1,5 @@
 'use strict';
+const express = require('express');
 
 module.exports = function (app) {
     let path = require('path');
@@ -6,11 +7,13 @@ module.exports = function (app) {
     let authorizeRouter = require('./routers/authorizeRouter');
     let api = require('./api/api');
 
+    console.log(path.resolve(__dirname, '../../../fe/dist'));
+
     // Định tuyến
     app.use('/login', authorizeRouter)
         .use(authorizeMiddleware)
         .use('/api', api)
-        .use('/', (req, res) => res.sendFile(path.resolve(__dirname, '../index.html')))
+        .use('/', express.static(path.resolve(__dirname, '../../../fe/dist')))
         .use((req, res) => {
             res.status(404).send("Not found");
         })
