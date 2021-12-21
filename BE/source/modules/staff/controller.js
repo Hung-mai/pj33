@@ -9,28 +9,51 @@ const checkEmptyObject = require('../../utils/checkEmptyObject');
 
 module.exports = {
     /**
-     * Lấy danh sách nhân viên y tế dựa trên query
-     * 
-     * @param {Request} req Request
-     * @param {Response} res Response
+     * Get staff list base on hospitalId in client session
+     * @param {Request} req Request from client
+     * @param {Response} res Response to client
      */
-    getQuery: async (req, res) => {
+    getStaffList: async (req, res) => {
         try {
-            if (checkEmptyObject(req.query)) { // Lấy toàn bộ danh sách nhân viên y tế, dành cho nhân viên Sở y tế
-                let result = await Staff.getAll();
-                res.send(result);
-            } else if (req.query.hospitalId && // Lấy danh sách nhân viên quản lý cơ sở y tế, dành cho nhân viên Quản lý cơ sở y tế
-                typeof req.query.hospitalId == 'string') {
-                let result = await Staff.getByHospitalId(req.query.hospitalId);
-                res.send(result);
-            } else {
-                res.status(400).send("Bad request");
+            let result = null;
+            switch (req.session.hospitalId) {
+                case 1:
+                    result = await Staff.getAll();
+                    break;
+                default:
+                    result = await Staff.getByHospitalId(req.session.hospitalId);
+                    break;
             }
+            res.send(result);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).send(error);
         }
     },
-    getOneById: async (req, res) => {
+    // /**
+    //  * Get staff info from query
+    //  * 
+    //  * @param {Request} req Request
+    //  * @param {Response} res Response
+    //  */
+    // getStaffByHospitalId: async (req, res) => {
+    //     try {
+    //         if (req.query.hospitalId == req.session.hospitalId && // Lấy danh sách nhân viên cơ sở y tế cụ thể, dành cho nhân viên Quản lý cơ sở y tế
+    //             typeof req.query.hospitalId == 'string') {
+    //             let result = await Staff.getByHospitalId(req.query.hospitalId);
+    //             res.send(result);
+    //         } else {
+    //             res.status(400).send("Bad request");
+    //         }
+    //     } catch (error) {
+    //         res.status(500).send(error);
+    //     }
+    // },
+    /**
+     * Lấy thông tin nhân viên bằng Id
+     * @param {Request} req request from client
+     * @param {Response} res response to client
+     */
+     getStaffInfoById: async (req, res) => {
         try {
             let result = await Staff.getOneById(req.params.id);
             res.send(result);

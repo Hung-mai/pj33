@@ -3,8 +3,8 @@ const staffAPI = express.Router();
 const staffController = require('../../modules/staff/controller');
 const staffInfoValidate = require('../../middlewares/staff/staffInfoValidate');
 
-staffAPI.get('/', staffController.getQuery)
-    .get('/:id', staffController.getOneById)
+staffAPI.get('/', staffController.getStaffList)
+    .get('/:id', staffController.getStaffInfoById)
     .post('/', staffInfoValidate, staffController.store)
     .put('/:id', staffInfoValidate, staffController.update)
     .delete('/:id', staffController.delete)
