@@ -12,3 +12,8 @@
 3. Create database with `initSql.sql`  
 4. Run server  
 5. Login with account `ANV000` - `000`  
+
+### Using two server
+- Run `yarn serve` in fe folder terminal to run vue development server
+- Run `npm run start` in be folder to run server
+- TODO: CORS
