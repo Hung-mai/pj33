@@ -5,7 +5,7 @@ const mysql = require('mysql')
 const db = require('../../models/db');
 const toSQLDate = require('../../utils/toSQLDate');
 const Staff = require('../staff/model');
-const checkEmptyObject = require('../../utils/checkEmptyObject');
+const checkEmptyObject = require('../../utils/isEmptyObject');
 
 module.exports = {
     /**

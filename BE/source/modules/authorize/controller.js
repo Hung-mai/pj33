@@ -1,4 +1,5 @@
 const path = require('path');
+const isEmptyObject = require('../../utils/isEmptyObject');
 const Staff = require('../staff/model');
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
     // Đăng nhập
     post: async (req, res) => {
         try {
-            if (req.body && req.body.username && req.body.password) {
+            if (isEmptyObject(req.body) && req.body.username && req.body.password) {
                 let result = await Staff.authorize(req.body.username, req.body.password);
                 if (result.status == 200) {
                     // Store session
@@ -32,7 +33,7 @@ module.exports = {
         } catch (error) {
             res.status(500).send({
                 status: 500,
-                error: "Internal Server ZZZZZZZZ"
+                error: "Internal Server Error"
             })
         }
     }
