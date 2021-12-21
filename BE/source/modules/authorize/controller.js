@@ -14,7 +14,7 @@ module.exports = {
     // Đăng nhập
     post: async (req, res) => {
         try {
-            if (isEmptyObject(req.body) && req.body.username && req.body.password) {
+            if (!isEmptyObject(req.body) && req.body.username && req.body.password) {
                 let result = await Staff.authorize(req.body.username, req.body.password);
                 if (result.status == 200) {
                     // Store session
