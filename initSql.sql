@@ -145,6 +145,3 @@ CREATE TABLE Transfer (
     FOREIGN KEY (afterId)
         REFERENCES Hospital (hospitalId)
 );
-
-ALTER TABLE `project3`.`patient` 
-ADD COLUMN `level` INT ZEROFILL NULL AFTER `endTime`;
