@@ -72,6 +72,7 @@ export default {
       try {
         let response = await fetch(`http://localhost:3000/login`, {
           method: "POST",
+          credentials: 'include',
           headers: {
             "Content-type": "application/json",
           },
@@ -83,9 +84,16 @@ export default {
         let data = await response.json();
         console.log(data);
       } catch (error) {
-          console.log(error);
+        console.log(error);
       }
     },
+  },
+  async created() {
+    const response = await fetch("http://localhost:3000/login", {
+      credentials: 'include'
+    });
+    const data = await response.text();
+    console.log(data);
   },
 };
 </script>
