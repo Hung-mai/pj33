@@ -81,19 +81,23 @@ export default {
             password: this.password,
           }),
         });
-        let data = await response.json();
-        console.log(data);
+        if (response.status == 200) {
+          this.$router.push('/');
+        }
       } catch (error) {
         console.log(error);
       }
     },
   },
   async created() {
+    // Check valid credential
     const response = await fetch("http://localhost:3000/login", {
       credentials: 'include'
     });
     const data = await response.text();
-    console.log(data);
+    if (data == "true") {
+      this.$router.push('/');
+    }
   },
 };
 </script>

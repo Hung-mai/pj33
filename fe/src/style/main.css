@@ -1,6 +1,12 @@
+@import url('./layout/navbar.css');
+@import url('./layout/header.css');
+@import url('./layout/content.css');
+
+@import url('./layout/grid.css');
 * {
 	margin: 0px;
 	padding: 0px;
+	box-sizing: border-box;
 }
 
 body {
@@ -24,11 +30,6 @@ body {
 .login-form {
 	margin-top: 150px;
 	margin-bottom: 0px;
-}
-
-.header {
-	background-color: #337AB7;
-	color: #fff;
 }
 
 .dmenu {
@@ -92,4 +93,8 @@ body {
 
 .active {
 	background-color: #EEEEEE;
+}
+
+.row {
+	margin: 0px;
 }

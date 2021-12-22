@@ -1,0 +1,30 @@
+.x-navbar {
+    width: 225px;
+    background-image: url(../../assets/images/bg3.jpg);
+    height: calc(100vh - 60px);
+    padding: 0px;
+    margin: 0px;
+    overflow: auto;
+}
+
+.x-navbar a {
+    text-decoration: none;
+    color: #444;
+}
+
+.x-navbar a:hover {
+    color: #111;
+}
+
+.x-navbar .navbar-item {
+    height: 36px;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 8px;
+    display: block;
+    margin: 4px 16px;
+}
+
+.x-navbar .navbar-item:hover {
+    background-color: #aaa;
+}

@@ -1,0 +1,7 @@
+.x-content {
+    width: calc(100% - 225px);
+    height: calc(100vh - 60px);
+    padding: 8px;
+    margin: 0px;
+    box-sizing: border-box;
+}
