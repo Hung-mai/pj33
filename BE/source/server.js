@@ -6,7 +6,11 @@ let app = express();
 let port = process.env.PORT || 3000;
 
 app
-.use(cors()) // Using cors allow all request from browser
+.use(cors({
+    origin: 'http://localhost:8080',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+})) // Using cors allow all request from browser
 .use(express.json(), express.urlencoded({ extended: true }), session({
     key: 'cookey',
     secret: 'this_is_not_a_secrete',

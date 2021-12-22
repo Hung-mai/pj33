@@ -7,8 +7,6 @@ module.exports = function (app) {
     let authorizeRouter = require('./routers/authorizeRouter');
     let api = require('./api/api');
 
-    console.log(path.resolve(__dirname, '../../../fe/dist'));
-
     // Định tuyến
     app.use('/login', authorizeRouter)
         .use(authorizeMiddleware)

@@ -6,9 +6,9 @@ module.exports = {
     // Truy cập trang đăng nhập
     get: (req, res) => {
         if (req.session.staffId && req.session.hospitalId && req.session.roleId) {
-            res.redirect('/');
+            res.send(true);
         } else {
-            res.sendFile(path.resolve(__dirname, '../../login.html'));
+            res.send(false);
         }
     },
     // Đăng nhập
