@@ -7,7 +7,8 @@
     </div>
 
     <div class="x-col x-col-3">
-      <div class="x-row name align-items-center">Phan Trọng Tình</div>
+      <div class="x-row name align-items-center">{{user.staffName}}</div>
+      
     </div>
   </div>
 </template>
@@ -15,5 +16,6 @@
 <script>
 export default {
   name: "TheHeader",
+  props: ['user']
 };
 </script>

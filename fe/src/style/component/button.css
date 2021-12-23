@@ -1,0 +1,16 @@
+.btn-i {
+    height: 28px;
+    width: 28px;
+}
+
+.btn-i-delete {
+    background-image: url(../../assets/icons/trash-fill.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn-i-update {
+    background-image: url(../../assets/icons/wrench.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid p-0 h-100">
+  <div class="p-0 h-100">
     <!--- Header --------------------------->
-    <nav class="navbar fixed-top header">
+    <nav class="navbar fixed-top x-header x-header-login">
       <div class="container-fluid p-0">
         <div class="d-flex align-items-center ms-3">
           <div class="navbar-brand logo">

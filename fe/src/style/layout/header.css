@@ -5,6 +5,11 @@
     color: #fff;
 }
 
+.x-header-login {
+    height: 90px;
+    padding: 0px;
+}
+
 .x-header .app-title {
     font-size: 30px;
     line-height: 30px;

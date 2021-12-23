@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import 'bootstrap'
 
 import Index from './view/index/Index.vue';
 import Login from './view/login/Login.vue';

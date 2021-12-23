@@ -1,59 +1,132 @@
 <template>
   <div class="x-content">
     <!-----------  Content Menu Tab Start   ------------>
-    <div class="panel panel-default contentinside">
-      <div class="panel-heading">Manage Department</div>
+    <div class="panel">
+      <div class="panel-heading">Bệnh viện Bạch Mai</div>
 
       <!----------------   Panel Body Start   --------------->
       <div class="panel-body">
-        <ul class="nav nav-tabs doctor">
-          <li role="presentation">
-            <a href="#doctorlist" class="active">Department List</a>
-          </li>
-          <li role="presentation">
-            <a href="#adddoctor">Add Department</a>
-          </li>
-        </ul>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button
+              class="nav-link active"
+              id="nav-stafflist-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-stafflist"
+              type="button"
+              role="tab"
+            >
+              Staff List
+            </button>
+            <button
+              class="nav-link"
+              id="nav-addstaff-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-addstaff"
+              type="button"
+              role="tab"
+            >
+              Add Staff
+            </button>
+          </div>
+        </nav>
 
-        <!----------------   Display Department Data List start   --------------->
+        <div class="tab-content">
+          <!----------------   Display Department Data List start   --------------->
 
-        <div id="doctorlist" class="switchgroup">
-          <table class="table table-bordered table-hover">
-            <tbody>
-              <tr class="active">
-                <td>Department ID</td>
-                <td>Department Name</td>
-                <td>Department Description</td>
-                <td>Options</td>
-              </tr>
-              <tr>
-                <td>123</td>
-                <td>Neurology</td>
-                <td>desc of neurology dept.</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#myModal"
-                  >
-                    <span
-                      class="glyphicon glyphicon-wrench"
-                      aria-hidden="true"
-                    ></span>
-                  </button>
-                  <a href="#" class="btn btn-danger"
-                    ><span
-                      class="glyphicon glyphicon-trash"
-                      aria-hidden="true"
-                    ></span
-                  ></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div id="nav-stafflist" class="tab-pane fade show active">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Staff ID</th>
+                  <th>Staff Name</th>
+                  <th>Hospital</th>
+                  <th>Role</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>123</td>
+                  <td>Neurology</td>
+                  <td>desc of neurology dept.</td>
+                  <td>Nurse</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-i btn-i-update"
+                      data-toggle="modal"
+                      data-target="#myModal"
+                    ></button>
+                    <button
+                      href="#"
+                      class="btn btn-danger btn-i btn-i-delete"
+                    ></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!----------------   Display Department Data List ends   --------------->
+
+          <!----------------   Add Department Start   --------------->
+          <div id="nav-addstaff" class="tab-pane fade">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form class="form-horizontal" action="#">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Department ID</label>
+                    <div class="col-sm-4">
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="deptId"
+                        placeholder="Enter Department Name"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label"
+                      >Department Name</label
+                    >
+                    <div class="col-sm-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="deptName"
+                        placeholder="Enter Department Name"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label"
+                      >Department Description</label
+                    >
+                    <div class="col-sm-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="deptDesc"
+                        placeholder="Enter Department Description here..."
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-10">
+                      <button type="submit" class="btn btn-primary">
+                        Add Department
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!----------------   Add Department Ends   --------------->
         </div>
-        <!----------------   Display Department Data List ends   --------------->
 
         <!------ Edit Department Modal Start ---------->
 
@@ -149,62 +222,6 @@
           </div>
         </div>
         <!----------------   Modal ends here  --------------->
-
-        <!----------------   Add Department Start   --------------->
-        <div id="adddoctor" class="switchgroup">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <form class="form-horizontal" action="#">
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Department ID</label>
-                  <div class="col-sm-4">
-                    <input
-                      type="number"
-                      class="form-control"
-                      name="deptId"
-                      placeholder="Enter Department Name"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Department Name</label>
-                  <div class="col-sm-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="deptName"
-                      placeholder="Enter Department Name"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label"
-                    >Department Description</label
-                  >
-                  <div class="col-sm-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="deptDesc"
-                      placeholder="Enter Department Description here..."
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="col-sm-offset-4 col-sm-10">
-                    <button type="submit" class="btn btn-primary">
-                      Add Department
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!----------------   Add Department Ends   --------------->
       </div>
       <!----------------   Panel Body Ends   --------------->
     </div>
