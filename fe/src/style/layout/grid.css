@@ -1,51 +1,50 @@
-.x-row {
+.m-row {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
 }
 
-.x-col {
+.m-col {
     display: flex;
-    flex-direction: column;
     flex-grow: 1;
 }
 
-.x-col-6 {
+.m-col-6 {
     width: 50%;
 }
 
-.x-col-12 {
+.m-col-12 {
     width: 100%;
 }
 
-.x-col-3 {
+.m-col-3 {
     width: 25%;
 }
 
-.x-col-9 {
+.m-col-9 {
     width: 75%;
 }
 
-.x-col-4 {
+.m-col-4 {
     width: 33.333333%;
 }
 
-.x-col-8 {
+.m-col-8 {
     width: 66.666667%;
 }
 
-.x-col-5 {
+.m-col-5 {
     width: 41.666667%;
 }
 
-.x-col-7 {
+.m-col-7 {
     width: 58.333333%;
 }
 
-.x-col-10 {
+.m-col-10 {
     width: 83.333333%;
 }
 
-.x-col-2 {
+.m-col-2 {
     width: 16.666667%;
 }

@@ -1,0 +1,9 @@
+.m-searchbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 1;
+    flex-grow: 0;
+    box-sizing: border-box;
+    width: fit-content;
+}

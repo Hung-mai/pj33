@@ -8,4 +8,13 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME || "project3"
 });
 
+db.queryDB = async (query) => {
+  return new Promise((resolve, reject) => {
+    db.query(query, (error, result) => {
+      if (error) { reject(error) }
+      else { resolve(result) }
+    })
+  })
+}
+
 module.exports = db

@@ -6,16 +6,8 @@ class Staff {
      * Lấy toàn bộ danh sách nhân viên y tế (Chỉ danh cho nhân viên Sở y tế)
      */
     static async getAll() {
-        let query = `SELECT hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff`;
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, response) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(response);
-                }
-            })
-        })
+        let query = `SELECT staffId, hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff`;
+        return await db.queryDB(query);
     }
 
     /**
@@ -24,16 +16,8 @@ class Staff {
      * @param {String} hospitalId Id của bệnh viên
      */
     static async getByHospitalId(hospitalId) {
-        let query = `SELECT hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff WHERE hospitalId = ${hospitalId}`;
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, response) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(response);
-                }
-            })
-        })
+        let query = `SELECT staffId, hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff WHERE hospitalId = ${hospitalId}`;
+        return await db.queryDB(query);
     }
 
     /**
@@ -42,26 +26,13 @@ class Staff {
      * @param {String} staffId Id của nhân viên y tế
      */
     static async getOneById(staffId) {
-        let query = `SELECT hospitalId, staffName, dob, phone, address, roleId, username FROM ${process.env.DB_NAME || "project3"}.staff WHERE staffId = ${staffId}`;
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, response) => {
-                if (error) {
-                    reject(error);
-                }
-                else { resolve(response[0]) };
-            })
-        })
+        let query = `SELECT staffId, hospitalId, staffName, dob, phone, address, roleId, username FROM ${process.env.DB_NAME || "project3"}.staff WHERE staffId = ${staffId}`;
+        return await db.queryDB(query);
     }
 
     static async getOneByUsername(username) {
         let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.staff WHERE username = '${username}'`;
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, response) => {
-                if (error) {
-                    reject(error);
-                } else resolve(response[0]);
-            })
-        })
+        return await db.queryDB(query);
     }
 
     /**
@@ -78,14 +49,7 @@ class Staff {
         let username = generateUsername(staffName, phone);
         let password = phone;
         let query = `INSERT INTO ${process.env.DB_NAME || "project3"}.staff (hospitalId, staffName, username, password, phone, dob, address, roleId) VALUES (${hospitalId}, '${staffName}', '${username}', '${password}', '${phone}', '${dob}', '${address}', ${roleId});`
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, response) => {
-                if (error) {
-                    reject(error);
-                }
-                else { resolve(response) };
-            })
-        })
+        return await db.queryDB(query);
     }
 
     /**
@@ -101,19 +65,13 @@ class Staff {
 
     static async updateStaff(staffId, hospitalId, staffName, phone, dob, address, roleId) {
         let query = `UPDATE ${process.env.DB_NAME || "project3"}.staff SET hospitalId = ${hospitalId}, staffName = '${staffName}', phone = '${phone}', dob = '${toSQLDate(dob)}', address = '${address}', roleId = ${roleId} WHERE (staffId = ${staffId})`;
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, response) => {
-                if (error) {
-                    reject(error);
-                }
-                else { resolve(response) };
-            })
-        })
+        return await db.queryDB(query);
     }
 
     static async authorize(username, password) {
         try {
-            let user = await Staff.getOneByUsername(username);
+            let users = await Staff.getOneByUsername(username);
+            let user = users[0];
             if (!user || user.password !== password) {
                 return {
                     status: 400,

@@ -1,0 +1,11 @@
+.m-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.m-option-label {
+    font-size: 13px;
+    font-weight: normal;
+}

@@ -1,11 +1,7 @@
 'use strict'
-
-const util = require('util')
-const mysql = require('mysql')
 const db = require('../../models/db');
 const toSQLDate = require('../../utils/toSQLDate');
 const Staff = require('../staff/model');
-const checkEmptyObject = require('../../utils/isEmptyObject');
 
 module.exports = {
     /**
@@ -69,14 +65,14 @@ module.exports = {
     getUserInfo: async (req, res) => {
         try {
             let result = await Staff.getOneById(req.session.staffId);
-            res.send(result);
+            res.send(result[0]);
         } catch (error) {
             res.status(400).send(error);
         }
     },
     update: async (req, res) => {
         try {
-            let result = await Staff.updateStaff(req.params.id, req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dateOfBirth), req.body.address);
+            let result = await Staff.updateStaff(req.params.id, req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address);
             res.status(200).send("1");
         } catch (error) {
             res.status(400).send(error);
@@ -84,7 +80,7 @@ module.exports = {
     },
     store: async (req, res) => {
         try {
-            let result = await Staff.storeStaff(req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dateOfBirth), req.body.address);
+            let result = await Staff.storeStaff(req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address, req.body.roleId);
             res.status(200).send("1");
         } catch (error) {
             res.status(400).send(error);

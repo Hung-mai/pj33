@@ -2,7 +2,7 @@ module.exports = (req, res, next) => {
     if (!req.body.hospitalId ||
         !req.body.staffName ||
         !req.body.phone ||
-        !req.body.dateOfBirth ||
+        !req.body.dob ||
         !req.body.address ||
         !req.body.roleId)
         res.status(400).send({

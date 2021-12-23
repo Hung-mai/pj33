@@ -1,4 +1,6 @@
 @import url('./component/button.css');
+@import url('./component/input.css');
+@import url('./component/icon.css');
 
 @import url('./layout/navbar.css');
 @import url('./layout/header.css');
@@ -15,6 +17,7 @@ body {
 	background-image: url(../assets/images/bg.jpg);
 	background-repeat: no-repeat;
 	background-size: 100%;
+	min-height: 500px;
 }
 
 .logo img {

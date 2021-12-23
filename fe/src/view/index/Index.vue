@@ -2,9 +2,9 @@
   <div>
     <the-header :user="user"></the-header>
 
-    <div class="x-row">
+    <div class="m-row">
       <the-navbar></the-navbar>
-      <the-content></the-content>
+      <the-content :user="user" :hospitalList="hospitalList" :roleList="roleList"></the-content>
     </div>
   </div>
 </template>
@@ -28,6 +28,8 @@ export default {
         username: "",
         staffId: "",
       },
+      hospitalList: [],
+      roleList: []
     };
   },
   components: {
@@ -38,19 +40,31 @@ export default {
   methods: {
     async getUserInfo() {
       const response = await fetch(`http://localhost:3000/api/staff/userInfo`, {
-        credentials: 'include'
+        credentials: "include",
       });
       const data = await response.json();
       if (data == false) {
-        document.cookie = '';
-        this.$router.push('/login');
+        document.cookie = "";
+        this.$router.push("/login");
       } else {
         this.user = data;
       }
     },
+    async getHospitalList() {
+      const response = await fetch(`http://localhost:3000/api/hospital`, {
+        credentials: "include",
+      });
+      this.hospitalList = await response.json();
+    },
+    async getRoleList() {
+      const response = await fetch(`http://localhost:3000/api/role`, {
+        credentials: "include",
+      });
+      this.roleList = await response.json();
+    },
   },
   async created() {
-    await this.getUserInfo();
+    await Promise.allSettled([this.getUserInfo(), this.getHospitalList(), this.getRoleList()]);
   },
 };
 </script>

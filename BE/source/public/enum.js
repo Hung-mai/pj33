@@ -6,7 +6,15 @@ const Level = {
     UNKNOW: 5
 };
 
+const Role = {
+    'Nhân viên Sở y tế': 1,
+    'Y tá': 2,
+    'Bác sĩ': 3,
+    'Nhân viên điểm xét nghiệm': 4,
+    'Quản lý cơ sở y tế': 5,
+}
+
 module.exports = {
-    Level
+    Level, Role
 }
 

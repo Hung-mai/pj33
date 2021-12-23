@@ -1,0 +1,13 @@
+.m-checkbox-component {
+    display: flex;
+    align-items: center;
+}
+
+.m-checkbox {
+    width: 18px;
+    height: 18px;
+}
+
+.m-checkbox:focus-visible {
+    outline: green solid 1px;
+}

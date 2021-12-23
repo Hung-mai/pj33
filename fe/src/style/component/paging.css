@@ -1,0 +1,44 @@
+.m-paging-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.m-paging-group {
+    display: flex;
+    align-items: center;
+}
+
+.m-paging-group {
+    margin-right: 8px;
+}
+
+.m-paging-group > * {
+    margin: 0px 8px;
+}
+
+.m-paging {
+    display: flex;
+    cursor: pointer;
+}
+
+.m-paging > * {
+    margin: 0px 4px;
+}
+
+.m-page-numbar {
+    display: flex;
+}
+
+.m-page-num {
+    display: flex;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0 0.25rem;
+}
+
+.m-page-selected {
+    border: 1px solid #babec5;
+    font-weight: 700;
+}

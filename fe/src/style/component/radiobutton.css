@@ -1,0 +1,12 @@
+.m-radio-component {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    margin: 0px;
+}
+
+.m-radio {
+    width: 18px;
+    height: 18px;
+    margin: 0px 4px 0px 0px;
+}

@@ -1,0 +1,43 @@
+.m-input {
+    padding: 0 12px 0 10px;
+    border: 1px solid #babec5;
+    height: 32px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    outline: unset;
+    box-shadow: none;
+    background-color: #ffffff;
+    font-size: 15px;
+}
+
+.m-input:focus {
+    border: 1px solid var(--bs-primary);
+    outline: unset !important;
+    box-shadow: none;
+}
+
+.m-input:hover {
+    outline: 1px solid #e2e2e2;
+}
+
+.m-input-icon {
+    position: absolute;
+    right: 12px;
+}
+
+.m-input-search {
+    padding-right: 2.75rem;
+}
+
+.m-input-search::placeholder {
+    font-family: NotoSans-Italic;
+    font-size: 12px;
+}
+
+.m-input-date {
+    padding: 0px 0px 0px 8px;
+}
+
+.m-input-100 {
+    width: 100%;
+}

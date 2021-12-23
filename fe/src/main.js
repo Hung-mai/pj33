@@ -14,6 +14,10 @@ const routes = [
   {
     path: '/',
     component: Index
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/login'
   }
 ]
 

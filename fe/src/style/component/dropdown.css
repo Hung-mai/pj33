@@ -1,0 +1,24 @@
+.m-dropdown-container {
+    display: block;
+    padding: 2px;
+    position: fixed;
+    top: -100px;
+    left: -100px;
+    border: 1px solid #eceef1;
+    background-color: #ffffff;
+}
+
+.m-dropdown {
+    width: fit-content;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.m-dropdown-item {
+    padding: 4px 8px;
+}
+
+.m-dropdown-item:hover {
+    background-color: #eceef1;
+    color: #35bf22;
+}
