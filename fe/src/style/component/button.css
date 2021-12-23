@@ -9,7 +9,7 @@
 }
 
 .m-btn-primary {
-    background-color: #2ca01c;
+    background-color: var(--bs-primary);
     border: 1px solid transparent;
     color: #ffffff;
 }
@@ -34,4 +34,19 @@
 
 .m-btn-icon:active {
     outline: #0075c0 solid 1px;
+}
+
+.btn-i {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 32px;
+    height: 32px;
+}
+
+.btn-i-delete {
+    background-image: url(../../assets/icons/trash-fill.svg);
+}
+
+.btn-i-update {
+    background-image: url(../../assets/icons/wrench.svg);
 }

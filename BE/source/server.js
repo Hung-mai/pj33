@@ -7,7 +7,7 @@ let port = process.env.PORT || 3000;
 
 app
 .use(cors({
-    origin: 'http://localhost:8080',
+    origin: ['http://localhost:8080', 'http://localhost:8081'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 })) // Using cors allow all request from browser

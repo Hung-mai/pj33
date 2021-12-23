@@ -6,6 +6,8 @@ import 'bootstrap'
 import Index from './view/index/Index.vue';
 import Login from './view/login/Login.vue';
 
+import Staff from './view/index/staff/Staff.vue';
+
 const routes = [
   {
     path: '/login',
@@ -13,7 +15,14 @@ const routes = [
   },
   {
     path: '/',
-    component: Index
+    component: Index,
+    redirect: '/staff',
+    children: [
+      {
+        path: '/staff',
+        component: Staff
+      }
+    ]
   },
   {
     path: '/:pathMatch(.*)*',

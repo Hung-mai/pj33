@@ -1,6 +1,6 @@
 .m-navbar {
     width: 225px;
-    background-image: url(../../assets/images/bg3.jpg);
+    background-color: #ccc;
     height: calc(100vh - 60px);
     padding: 0px;
     margin: 0px;
