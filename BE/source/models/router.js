@@ -6,6 +6,7 @@ module.exports = function (app) {
     let authorizeMiddleware = require('../middlewares/global/authorizeMiddleware');
     let authorizeRouter = require('./routers/authorizeRouter');
     let api = require('./api/api');
+    let sessionLogger = require('../middlewares/global/sessionLogger');
 
     // Định tuyến
     app.use('/login', authorizeRouter)

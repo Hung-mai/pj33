@@ -61,6 +61,19 @@ module.exports = {
             res.status(400).send(error);
         }
     },
+    /**
+     * Lấy thông tin người dùng đã đăng nhập
+     * @param {Request} req Request từ client
+     * @param {Response} res Response tới client
+     */
+    getUserInfo: async (req, res) => {
+        try {
+            let result = await Staff.getOneById(req.session.staffId);
+            res.send(result);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    },
     update: async (req, res) => {
         try {
             let result = await Staff.updateStaff(req.params.id, req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dateOfBirth), req.body.address);

@@ -42,7 +42,7 @@ class Staff {
      * @param {String} staffId Id của nhân viên y tế
      */
     static async getOneById(staffId) {
-        let query = `SELECT hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff WHERE staffId = ${staffId}`;
+        let query = `SELECT hospitalId, staffName, dob, phone, address, roleId, username FROM ${process.env.DB_NAME || "project3"}.staff WHERE staffId = ${staffId}`;
         return new Promise((resolve, reject) => {
             db.query(query, (error, response) => {
                 if (error) {
