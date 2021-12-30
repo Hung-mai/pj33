@@ -170,7 +170,7 @@
                       class="m-input m-col-9 m-col"
                     >
                       <option
-                        v-for="hospital in hospitalList"
+                        v-for="hospital in normalizedHospitalList"
                         :value="hospital.hospitalId"
                         :key="hospital.hospitalId"
                       >
@@ -189,7 +189,7 @@
                       class="m-input m-col-9 m-col"
                     >
                       <option
-                        v-for="role in roleList"
+                        v-for="role in normalizedRoleList"
                         :value="role.roleId"
                         :key="role.roleId"
                       >
@@ -300,6 +300,24 @@ export default {
           hospitalId: hospital.hospitalId,
           name: hospital.name,
         });
+      }
+      return result;
+    },
+    normalizedRoleList() {
+      let result = [];
+      if (this.storedState.user.hospitalId != 1) {
+        result = this.roleList.filter(role => role.roleId != 1 && role.roleId != 4);
+      } else {
+        result = this.roleList;
+      }
+      return result;
+    },
+    normalizedHospitalList() {
+      let result = [];
+      if (this.storedState.user.roleId != 1) {
+        result = this.hospitalList.filter(hospital => hospital.hospitalId != 1);
+      } else {
+        result = this.hospitalList;
       }
       return result;
     },

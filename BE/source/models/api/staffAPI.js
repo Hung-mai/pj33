@@ -7,8 +7,18 @@ const sessionLogger = require('../../middlewares/global/sessionLogger');
 staffAPI.get('/', staffController.getStaffList)
     .get('/userInfo', staffController.getUserInfo) // Nếu để /:id lên trước, khi dùng /userInfo sẽ trở thành getStaffInfoById với id = userInfo
     .get('/:id', staffController.getStaffInfoById)
-    .post('/', staffInfoValidate.emptyValidate, staffInfoValidate.addStaffSameHospitalValidate, staffInfoValidate.baseHospitalStaffValidate, staffController.post)
-    .put('/:id', staffInfoValidate.emptyValidate, staffInfoValidate.addStaffSameHospitalValidate, staffInfoValidate.baseHospitalStaffValidate, staffController.put)
-    .delete('/:id', staffInfoValidate.authorizeValidate, staffInfoValidate.selfDeleteValidate, staffController.delete)
+    .post('/', staffInfoValidate.emptyValidate,
+                staffInfoValidate.manipulateStaffInfoValidate,
+                staffInfoValidate.addStaffSameHospitalValidate,
+                staffInfoValidate.baseHospitalStaffValidate,
+                staffController.post)
+    .put('/:id', staffInfoValidate.emptyValidate,
+                staffInfoValidate.manipulateStaffInfoValidate,
+                staffInfoValidate.addStaffSameHospitalValidate,
+                staffInfoValidate.baseHospitalStaffValidate,
+                staffController.put)
+    .delete('/:id', staffInfoValidate.authorizeDeleteValidate,
+                    staffInfoValidate.selfDeleteValidate,
+                    staffController.delete)
 
 module.exports = staffAPI;

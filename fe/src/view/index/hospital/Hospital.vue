@@ -203,12 +203,15 @@ export default {
       this.hospitalList = await this.$store.action.getHospitalList();
     },
     async deleteHospital(id) {
+      store.action.showLoading();
       let response = await fetch(`http://localhost:3000/api/hospital/${id}`, {
         credentials: "include",
         method: "DELETE",
       });
       let data = await response.text();
       console.log(data);
+      this.getHospitalList();
+      store.action.hideLoading();
     },
   },
   created() {

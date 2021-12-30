@@ -9,6 +9,7 @@ import Login from './view/login/Login.vue';
 
 import Staff from './view/index/staff/Staff.vue';
 import Hospital from './view/index/hospital/Hospital.vue';
+import NotFound from './view/index/error/NotFound.vue';
 
 const routes = [
   {
@@ -22,11 +23,23 @@ const routes = [
     children: [
       {
         path: '/staff',
-        component: Staff
+        component: Staff,
+        beforeEnter: (to, from, next) => {
+          if (store.state.user.roleId == 1 && store.state.user.roleId == 5) next();
+          else next('/notfound');
+        }
       },
       {
         path: '/hospital',
-        component: Hospital
+        component: Hospital,
+        beforeEnter: (to, from, next) => {
+          if (store.state.user.roleId == 1 && store.state.user.hospitalId == 1) next();
+          else next('/staff');
+        }
+      },
+      {
+        path: '/notfound',
+        component: NotFound
       }
     ]
   },

@@ -6,7 +6,7 @@ class Staff {
      * Lấy toàn bộ danh sách nhân viên y tế (Chỉ danh cho nhân viên Sở y tế)
      */
     static async getAll() {
-        let query = `SELECT staff.staffId, staff.staffName, staff.dob, staff.phone, staff.address, hospital.name AS hospitalName, role.roleName AS roleName FROM staff INNER JOIN hospital ON hospital.hospitalId=staff.hospitalId INNER JOIN role ON role.roleId=staff.roleId`;
+        let query = `SELECT staff.staffId, staff.staffName, staff.dob, staff.phone, staff.address, hospital.name AS hospitalName, staff.hospitalId, staff.roleId, role.roleName AS roleName FROM staff INNER JOIN hospital ON hospital.hospitalId=staff.hospitalId INNER JOIN role ON role.roleId=staff.roleId`;
         return await db.queryDB(query);
     }
 
@@ -16,7 +16,7 @@ class Staff {
      * @param {String} hospitalId Id của bệnh viên
      */
     static async getByHospitalId(hospitalId) {
-        let query = `SELECT staff.staffId, staff.staffName, staff.dob, staff.phone, staff.address, hospital.name AS hospitalName, role.roleName AS roleName FROM staff INNER JOIN hospital ON hospital.hospitalId=staff.hospitalId INNER JOIN role ON role.roleId=staff.roleId WHERE staff.hospitalId = ${hospitalId}`;
+        let query = `SELECT staff.staffId, staff.staffName, staff.dob, staff.phone, staff.address, hospital.name AS hospitalName, staff.hospitalId, staff.roleId, role.roleName AS roleName FROM staff INNER JOIN hospital ON hospital.hospitalId=staff.hospitalId INNER JOIN role ON role.roleId=staff.roleId WHERE staff.hospitalId = ${hospitalId}`;
         return await db.queryDB(query);
     }
 
@@ -71,30 +71,6 @@ class Staff {
     static async delete(staffId) {
         let query = `DELETE FROM staff WHERE staffId=${staffId}`;
         return await db.queryDB(query);
-    }
-
-    static async authorize(username, password) {
-        try {
-            let users = await Staff.getOneByUsername(username);
-            let user = users[0];
-            if (!user || user.password !== password) {
-                return {
-                    status: 400,
-                    message: "Tài khoản hoặc mật khẩu không chính xác"
-                }
-            } else {
-                return {
-                    status: 200,
-                    user: user
-                }
-            }
-        } catch (error) {
-            console.log(error);
-            return {
-                status: 500,
-                message: error
-            }
-        }
     }
 }
 

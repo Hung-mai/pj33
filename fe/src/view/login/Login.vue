@@ -41,6 +41,7 @@
               v-model="password"
             />
           </div>
+          <span v-show="errorMessage != ''" class="m-label-error">{{errorMessage}}</span>
         </div>
         <div class="col col-6 m-auto bg-white p-3">
           <button
@@ -65,6 +66,7 @@ export default {
     return {
       username: "",
       password: "",
+      errorMessage: ""
     };
   },
   methods: {
@@ -83,6 +85,8 @@ export default {
         });
         if (response.status == 200) {
           this.$router.push('/');
+        } else {
+          this.errorMessage = await response.text();
         }
       } catch (error) {
         console.log(error);

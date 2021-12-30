@@ -182,7 +182,7 @@ export default {
       return `${year}-${month}-${day}`;
     },
     async updateStaffInfo() {
-      store.showLoading();
+      store.action.showLoading();
       this.successMessage = '';
       this.errorMessage = '';
       const response = await fetch(`http://localhost:3000/api/staff/${this.selectedStaffId}`, {
@@ -195,12 +195,12 @@ export default {
       })
       if (response.status > 300) {
         this.errorMessage = await response.text();
-        store.hideLoading();
+        store.action.hideLoading();
         return;
       } else {
         let data = await response.text();
         this.successMessage = data;
-        store.hideLoading();
+        store.action.hideLoading();
         this.$emit('popup-save');
       }
       
