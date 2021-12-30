@@ -28,3 +28,7 @@
 .m-navbar .navbar-item:hover {
     background-color: #aaa;
 }
+
+.navbar-item.router-link-exact-active.router-link-active {
+    background-color: var(--bs-primary);
+}

@@ -7,7 +7,7 @@
     </div>
 
     <div class="m-col m-col-3">
-      <div class="m-row name align-items-center">{{user.staffName}}</div>
+      <div class="m-row name align-items-center">{{storedState.user.staffName}}</div>
       
     </div>
   </div>
@@ -16,6 +16,10 @@
 <script>
 export default {
   name: "TheHeader",
-  props: ['user']
+  data() {
+    return {
+      storedState: this.$store.state
+    }
+  }
 };
 </script>

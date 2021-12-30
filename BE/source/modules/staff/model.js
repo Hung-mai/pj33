@@ -6,7 +6,7 @@ class Staff {
      * Lấy toàn bộ danh sách nhân viên y tế (Chỉ danh cho nhân viên Sở y tế)
      */
     static async getAll() {
-        let query = `SELECT staffId, hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff`;
+        let query = `SELECT staff.staffId, staff.staffName, staff.dob, staff.phone, staff.address, hospital.name AS hospitalName, role.roleName AS roleName FROM staff INNER JOIN hospital ON hospital.hospitalId=staff.hospitalId INNER JOIN role ON role.roleId=staff.roleId`;
         return await db.queryDB(query);
     }
 
@@ -16,7 +16,7 @@ class Staff {
      * @param {String} hospitalId Id của bệnh viên
      */
     static async getByHospitalId(hospitalId) {
-        let query = `SELECT staffId, hospitalId, staffName, dob, phone, address, roleId FROM ${process.env.DB_NAME || "project3"}.staff WHERE hospitalId = ${hospitalId}`;
+        let query = `SELECT staff.staffId, staff.staffName, staff.dob, staff.phone, staff.address, hospital.name AS hospitalName, role.roleName AS roleName FROM staff INNER JOIN hospital ON hospital.hospitalId=staff.hospitalId INNER JOIN role ON role.roleId=staff.roleId WHERE staff.hospitalId = ${hospitalId}`;
         return await db.queryDB(query);
     }
 
@@ -26,7 +26,7 @@ class Staff {
      * @param {String} staffId Id của nhân viên y tế
      */
     static async getOneById(staffId) {
-        let query = `SELECT staffId, hospitalId, staffName, dob, phone, address, roleId, username FROM ${process.env.DB_NAME || "project3"}.staff WHERE staffId = ${staffId}`;
+        let query = `SELECT staff.staffId, staff.hospitalId, staff.staffName, staff.dob, staff.phone, staff.address, staff.roleId, staff.username, hospital.name as hospitalName FROM staff INNER JOIN hospital ON hospital.hospitalId = staff.hospitalId WHERE staffId = ${staffId}`;
         return await db.queryDB(query);
     }
 
@@ -45,7 +45,7 @@ class Staff {
      * @param {String} address Địa chỉ 
      * @param {String} roleId Mã chức vụ
      */
-    static async storeStaff(hospitalId, staffName, phone, dob, address, roleId) {
+    static async insert(hospitalId, staffName, phone, dob, address, roleId) {
         let username = generateUsername(staffName, phone);
         let password = phone;
         let query = `INSERT INTO ${process.env.DB_NAME || "project3"}.staff (hospitalId, staffName, username, password, phone, dob, address, roleId) VALUES (${hospitalId}, '${staffName}', '${username}', '${password}', '${phone}', '${dob}', '${address}', ${roleId});`
@@ -63,8 +63,13 @@ class Staff {
      * @param {String} roleId Mã chức vụ
      */
 
-    static async updateStaff(staffId, hospitalId, staffName, phone, dob, address, roleId) {
-        let query = `UPDATE ${process.env.DB_NAME || "project3"}.staff SET hospitalId = ${hospitalId}, staffName = '${staffName}', phone = '${phone}', dob = '${toSQLDate(dob)}', address = '${address}', roleId = ${roleId} WHERE (staffId = ${staffId})`;
+    static async update(staffId, hospitalId, staffName, phone, dob, address, roleId) {
+        let query = `UPDATE ${process.env.DB_NAME || "project3"}.staff SET hospitalId = ${hospitalId}, staffName = '${staffName}', phone = '${phone}', dob = '${dob}', address = '${address}', roleId = ${roleId} WHERE (staffId = ${staffId})`;
+        return await db.queryDB(query);
+    }
+
+    static async delete(staffId) {
+        let query = `DELETE FROM staff WHERE staffId=${staffId}`;
         return await db.queryDB(query);
     }
 

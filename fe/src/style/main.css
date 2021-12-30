@@ -2,6 +2,8 @@
 @import url('./component/input.css');
 @import url('./component/icon.css');
 @import url('./component/loading.css');
+@import url('./component/label.css');
+@import url('./component/table.css');
 
 @import url('./layout/navbar.css');
 @import url('./layout/header.css');

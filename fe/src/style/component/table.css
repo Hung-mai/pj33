@@ -13,6 +13,13 @@
     background-color: #eceef1;
 }
 
+.m-table thead > tr > th {
+    padding: 0px 10px;
+    position: sticky;
+    top: -1px;
+    background-color: #eceef1;
+}
+
 .m-table .m-thead tr>th:first-child {
     border-left: none !important;
 }

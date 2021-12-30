@@ -2,25 +2,30 @@ const db = require('../../models/db');
 
 class Hospital {
     static async getAll() {
-        try {
-            let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital`;
-            let result = await Hospital.queryDB(query);
-            return result;
-        } catch (error) {
-            return error;
-        }
+        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital`;
+        return await db.queryDB(query);
     }
 
-    static queryDB(query) {
-        return new Promise((resolve, reject) => {
-            db.query(query, (error, result) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(result);
-                }
-            })
-        })
+    static async getById(id) {
+        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital WHERE hospitalId=${id}`;
+        return await db.queryDB(query);
+    }
+
+    static async insert(name, address, rooms) {
+        let query = `INSERT INTO hospital (name, address, rooms) VALUES ("${name}", "${address}", ${rooms})`;
+        return await db.queryDB(query);
+    }
+
+    static async isUnusedHospital(id) {
+        let query = `SELECT * FROM staff WHERE staff.hospitalId=${id}`;
+        let result = await db.queryDB(query);
+        if (result.length == 0) return true;
+        else return false;
+    }
+    
+    static async delete(id) {
+        let query = `DELETE FROM hospital WHERE hospital.hospitalId=${id}`;
+        return await db.queryDB(query);
     }
 }
 

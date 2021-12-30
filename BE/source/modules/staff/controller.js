@@ -52,9 +52,10 @@ module.exports = {
      getStaffInfoById: async (req, res) => {
         try {
             let result = await Staff.getOneById(req.params.id);
-            res.send(result);
+            res.send(result[0]);
         } catch (error) {
-            res.status(400).send(error);
+            console.log(error);
+            res.status(500).send("Internal Server Error");
         }
     },
     /**
@@ -67,35 +68,45 @@ module.exports = {
             let result = await Staff.getOneById(req.session.staffId);
             res.send(result[0]);
         } catch (error) {
-            res.status(400).send(error);
+            console.log(error);
+            res.status(500).send("Internal Server Error");
         }
     },
-    update: async (req, res) => {
+    put: async (req, res) => {
         try {
-            let result = await Staff.updateStaff(req.params.id, req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address);
-            res.status(200).send("1");
-        } catch (error) {
-            res.status(400).send(error);
-        }
-    },
-    store: async (req, res) => {
-        try {
-            let result = await Staff.storeStaff(req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address, req.body.roleId);
-            res.status(200).send("1");
-        } catch (error) {
-            res.status(400).send(error);
-        }
-    },
-    delete: (req, res) => {
-        let query = `DELETE FROM ${process.env.DB_NAME || "project3"}.staff WHERE (staffId = ${req.params.id})`;
-        db.query(query, (error, response) => {
-            if (error) {
-                res.status(400).send(error);
+            let result = await Staff.update(req.params.id, req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address, req.body.roleId);
+            if (result.affectedRows == 0) {
+                res.status(200).send("Không tìm thấy đối tượng cần cập nhật");
             } else {
-                res.status(200).send({
-                    status: "Success"
-                })
+                res.status(201).send("Cập nhật thành công");
             }
-        })
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+    post: async (req, res) => {
+        try {
+            let result = await Staff.insert(req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address, req.body.roleId);
+            if (result.affectedRows == 0) {
+                res.status(200).send("Thêm thất bại");
+            } else {
+                res.status(201).send("Thêm thành công");
+            }
+        } catch (error) {
+            res.status(500).send("Internal Server Error");
+        }
+    },
+    delete: async (req, res) => {
+        try {
+            let result = await Staff.delete(req.params.id);
+            if (result.affectedRows == 0) {
+                res.status(200).send("Không tìm thấy đối tượng cần xóa");
+            } else {
+                res.status(201).send("Xóa thành công");
+            }
+        } catch (error) {
+            
+        }
     }
 }
