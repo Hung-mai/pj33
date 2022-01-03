@@ -19,13 +19,13 @@ const routes = [
   {
     path: '/',
     component: Index,
-    redirect: '/staff',
+    redirect: '/hospital',
     children: [
       {
         path: '/staff',
         component: Staff,
         beforeEnter: (to, from, next) => {
-          if (store.state.user.roleId == 1 && store.state.user.roleId == 5) next();
+          if (store.state.user.roleId == 1 || store.state.user.roleId == 5) next();
           else next('/notfound');
         }
       },

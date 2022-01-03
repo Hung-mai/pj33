@@ -2,17 +2,22 @@ const db = require('../../models/db');
 
 class Hospital {
     static async getAll() {
-        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital`;
+        let query = `SELECT * FROM hospital`;
         return await db.queryDB(query);
     }
 
     static async getById(id) {
-        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital WHERE hospitalId=${id}`;
+        let query = `SELECT * FROM hospital WHERE hospitalId=${id}`;
         return await db.queryDB(query);
     }
 
     static async insert(name, address, rooms) {
         let query = `INSERT INTO hospital (name, address, rooms) VALUES ("${name}", "${address}", ${rooms})`;
+        return await db.queryDB(query);
+    }
+
+    static async update(id, name, address, rooms) {
+        let query = `UPDATE hospital SET name='${name}', address='${address}', rooms=${rooms} WHERE hospitalId=${id}`;
         return await db.queryDB(query);
     }
 
@@ -27,6 +32,24 @@ class Hospital {
         let query = `DELETE FROM hospital WHERE hospital.hospitalId=${id}`;
         return await db.queryDB(query);
     }
+
+    static async countNurses(id) {
+        let query = `SELECT Count(StaffId) as nurses FROM staff WHERE staffId=2 AND hospitalId=${id}`;
+        let result = await db.queryDB(query);
+        return result[0].nurses;
+    }
+
+    static async countDoctors(id) {
+        let query = `SELECT Count(StaffId) as doctors FROM staff WHERE staffId=3 AND hospitalId=${id}`;
+        let result = await db.queryDB(query);
+        return result[0].doctors;
+    }
+
+    static async countPatients(id) {
+        let query = `SELECT Count(PatientId) as patients FROM patient WHERE hospitalId=${id}`;
+        let result = await db.queryDB(query);
+        return result[0].patients;
+    };
 }
 
 module.exports = Hospital;

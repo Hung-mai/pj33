@@ -17,11 +17,16 @@ module.exports = {
     },
     getById: async (req, res) => {
         try {
-            const result = await Hospital.getById(req.params.id);
-            if (result.length == 0) {
+            const [hospital, nurses, doctors, patients] = await Promise.all([Hospital.getById(req.params.id), Hospital.countNurses(req.params.id), Hospital.countDoctors(req.params.id), Hospital.countPatients(req.params.id)]);
+
+            if (hospital.length == 0) {
                 res.status(204).send({});
             } else {
-                res.status(200).send(result[0])
+                let result = hospital[0];
+                result.nurses = nurses;
+                result.doctors = doctors;
+                result.patients = patients;
+                res.status(200).send(result)
             }
         } catch (error) {
             console.log(error);
@@ -41,6 +46,20 @@ module.exports = {
             res.status(500).send("Internal Server Error");
         }
     },
+    put: async (req, res) => {
+        try {
+            const result = await Hospital.update(req.params.id, req.body.name, req.body.address, 0);
+            if (result.affectedRows == 0) {
+                res.status(200).send("Không thể cập nhật thông tin bệnh viện");
+            } else {
+                res.status(201).send("Cập nhật thành công");
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+
     delete: async (req, res) => {
         try {
             const result = await Hospital.delete(req.params.id);
@@ -49,7 +68,7 @@ module.exports = {
             } else {
                 res.status(201).send("Đã xóa");
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             res.status(500).send("Internal Server Error");
         }

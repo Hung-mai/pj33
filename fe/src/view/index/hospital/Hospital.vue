@@ -69,8 +69,8 @@
                       data-bs-toggle="modal"
                       data-bs-target="#myHospitalModal"
                       @click="
-                        hospitalInfoShow = true;
-                        selectedHospitalId = hospital.hositalId;
+                        selectedHospitalId = hospital.hospitalId;
+                        hospitalInfoPopupShow = true;
                       "
                     ></button>
                     <button
@@ -93,7 +93,7 @@
                 <div class="form-body w-50">
                   <div class="m-row w-100 justify-content-center mb-2">
                     <label
-                      for="inpStaffName"
+                      for="inpHospitalName"
                       class="m-label m-col m-col-3 m-auto"
                       >Hospital Name:
                     </label>
@@ -145,26 +145,29 @@
       <!------ Edit Department Modal Start ---------->
     </div>
     <!-----------  Content Menu Tab Ends   ------------>
-    <!-- <hospital-info-popup
+    <hospital-info-popup
       :show="hospitalInfoPopupShow"
-      :selectedStaffId="selectedStaffId"
-      :hospitalList="hospitalList"
-      :roleList="roleList"
+      :selectedHospitalId="selectedHospitalId"
       @popup-close="
-        selectedStaffId = '';
+        selectedHospitalId = '';
         hospitalInfoPopupShow = false;
       "
-    ></hospital-info-popup> -->
+    ></hospital-info-popup>
     <!----------------   Modal ends here  --------------->
   </div>
 </template>
 
 <script>
 import { store } from "../../../script/store";
+import HospitalInfoPopup from "./HospitalInfoPopup.vue";
 
 export default {
+  components: { HospitalInfoPopup },
   name: "Hospital",
   props: ["user"],
+  component: {
+    HospitalInfoPopup,
+  },
   data() {
     return {
       tableShow: true,
@@ -175,6 +178,8 @@ export default {
       errorMessage: "",
       successMessage: "",
       hospitalList: [],
+      selectedHospitalId: "",
+      hospitalInfoPopupShow: false,
     };
   },
   methods: {
