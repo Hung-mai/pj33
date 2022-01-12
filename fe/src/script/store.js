@@ -28,6 +28,13 @@ export const store = {
                 let data = await response.json();
                 return data;
             },
+            getPatientList: async () => {
+                let response = await fetch(`http://localhost:3000/api/patient`, {
+                    credentials: 'include'
+                })
+                let data = await response.json();
+                return data;
+            },
             getRoleList: async () => {
                 let response = await fetch(`http://localhost:3000/api/role`, {
                     credentials: 'include'
