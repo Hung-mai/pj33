@@ -37,7 +37,7 @@
                     <input
                         v-model="medicalRecord.bodyTemperature"
                         type="text"
-                        id="inpPatientName"
+                        
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -50,7 +50,7 @@
                     <input
                         v-model="patientInfo.patientId"
                         type="text"
-                        id="inpPatientId"
+                        
                         class="m-input m-col-9 m-col"
                     />
                   </div> -->
@@ -62,7 +62,6 @@
                         v-model="medicalRecord.vaccinesAdministered"
                         type="text"
                         name="hospitalName"
-                        id="inpAddress"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -74,7 +73,7 @@
                         v-model="medicalRecord.spO2"
                         type="text"
                         name="hospitalName"
-                        id="inpPhone"
+                        
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -86,7 +85,7 @@
                         v-model="medicalRecord.backgroundDisease"
                         type="text"
                         name="hospitalName"
-                        id="inpIdentifyNumber"
+                        
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -98,7 +97,7 @@
                         v-model="medicalRecord.breathingFrequency"
                         type="text"
                         name="hospitalName"
-                        id="inpHealthInsuranceNumber"
+                        
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -110,7 +109,6 @@
                         v-model="medicalRecord.heartbeat"
                         type="text"
                         name="hospitalName"
-                        id="inpRoomId"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -122,7 +120,6 @@
                         v-model="medicalRecord.bloodPresure"
                         type="text"
                         name="hospitalName"
-                        id="inpRoomId"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -133,7 +130,7 @@
                     <select
                         v-model="medicalRecord.isFever"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"
@@ -151,7 +148,7 @@
                     <select
                         v-model="medicalRecord.isCough"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"
@@ -169,7 +166,7 @@
                     <select
                         v-model="medicalRecord.isSoreThroat"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"
@@ -187,7 +184,7 @@
                     <select
                         v-model="medicalRecord.isOxygenSupport"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"
@@ -205,7 +202,7 @@
                     <select
                         v-model="medicalRecord.isHardBreath"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"
@@ -223,7 +220,7 @@
                     <select
                         v-model="medicalRecord.isMusclePain"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"
@@ -241,7 +238,7 @@
                     <select
                         v-model="medicalRecord.isLossOfTaste"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="option in options"

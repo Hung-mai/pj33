@@ -6,13 +6,10 @@ module.exports = {
     getAll: async (req, res) => {
         try {
             const result = await Hospital.getAll();
-            res.send(result);
+            res.status(200).send(result);
         } catch (error) {
             console.log(error);
-            res.status(400).send({
-                status: 400,
-                error
-            })
+            res.status(500).send("Internal Server Error")
         }
     },
     getById: async (req, res) => {

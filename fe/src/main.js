@@ -20,35 +20,26 @@ const routes = [
   {
     path: '/',
     component: Index,
-    redirect: '/hospital',
     children: [
       {
         path: '/staff',
-        component: Staff,
-        beforeEnter: (to, from, next) => {
-          if (store.state.user.roleId == 1 || store.state.user.roleId == 5) next();
-          else next('/notfound');
-        }
+        component: Staff
       },
       {
         path: '/hospital',
-        component: Hospital,
-        beforeEnter: (to, from, next) => {
-          if (store.state.user.roleId == 1 && store.state.user.hospitalId == 1) next();
-          else next('/staff');
-        }
+        component: Hospital
       },
       {
         path: '/patient',
-        component: Patient,
-        beforeEnter: (to, from, next) => {
-          if (store.state.user.roleId == 1 && store.state.user.hospitalId == 1) next();
-          else next('/staff');
-        }
+        component: Patient
       },
       {
         path: '/notfound',
         component: NotFound
+      },
+      {
+        path: '/',
+        redirect: "/patient"
       }
     ]
   },

@@ -7,15 +7,8 @@
 </template>
 
 <script>
-import {store} from '../script/store'
-
 export default {
   name: "TheContent",
-  props: ["hospitalList", "roleList"],
-  data() {
-    return {
-      user: store.state.user
-    }
-  }
+  props: ["hospitalList", "roleList", "user"]
 };
 </script>
