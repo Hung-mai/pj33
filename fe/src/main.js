@@ -10,6 +10,7 @@ import Login from './view/login/Login.vue';
 import Staff from './view/index/staff/Staff.vue';
 import Hospital from './view/index/hospital/Hospital.vue';
 import Patient from "./view/index/patient/Patient";
+import testcamp from "./view/index/testcamp/testcamp.vue";
 import NotFound from './view/index/error/NotFound.vue';
 
 const routes = [
@@ -49,6 +50,14 @@ const routes = [
       {
         path: '/notfound',
         component: NotFound
+      },
+      {
+        path: '/testcamp',
+        component: testcamp,
+        beforeEnter: (to, from, next) => {
+          if (store.state.user.roleId == 1 && store.state.user.hospitalId == 1) next();
+          else next('/staff');
+        }
       }
     ]
   },
