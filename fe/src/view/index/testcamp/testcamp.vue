@@ -8,13 +8,14 @@
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button
-              class="nav-link active"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-hospitallist"
-              type="button"
-              role="tab"
-              @click="
-                tableShow = true;
+                id="testcampListBut"
+                class="nav-link active"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-hospitallist"
+                type="button"
+                role="tab"
+                @click="
+                    tableShow = true;
                 "
           >
             Danh sách điểm xét nghiệm
@@ -57,8 +58,35 @@
                 <th>Địa chỉ điểm xét nghiệm</th>
               </tr>
               </thead>
-              <tbody>
-              
+              <tbody v-if="testcampList.length">
+                <tr v-for="testcamp in testcampList" :key="testcamp.id">
+                    <td>{{ testcamp.campId }}</td>
+                    <td>{{ testcamp.address }}</td>
+                    
+                    <td>
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-i btn-i-update me-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myTestcampModal"
+                            @click="
+                                testcampInfoPopupShow = true;
+                                selectedTestcampId = testcamp.campId;
+                            "
+                        ></button>
+                        <button
+                            href="#"
+                            class="btn btn-danger btn-i btn-i-delete"
+                            @click="deleteTestcamp(testcamp.campId)"
+                        >
+                        </button>
+                    </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                    <tr>
+                        <td colspan="2" class="justify-content-center">Không có dữ liệu</td>
+                    </tr>
               </tbody>
             </table>
           </div>
@@ -81,6 +109,7 @@
                         type="text"
                         id="inpPatientName"
                         class="m-input m-col-9 m-col"
+                        v-model="newTestcamp.address"
                     />
                   </div>
                   <span class="m-label-error">{{
@@ -94,7 +123,7 @@
                   <div class="col-sm-offset-4 col-sm-10">
                     <button
                         class="btn btn-primary"
-                        
+                        @click="addTestcamp"
                     >
                       Add Testcamp
                     </button>
@@ -111,12 +140,22 @@
     </div>
     <!-----------  Content Menu Tab Ends   ------------>
 
-    <testcampInfo></testcampInfo>
+    <testcampInfo
+        :show="testcampInfoPopupShow"
+        :selectedTestcampId="selectedTestcampId"
+        @popup-close="
+            selectedTestcampId = '';
+            testcampInfoPopupShow = false;
+        "
+        @popup-save="getTestcampList()"
+    ></testcampInfo>
+    <notifications group="foo" position="bottom left" width="500" />
   </div>
 </template>
 
 <script>
-// import { store } from "../../../script/store";
+import { store } from "../../../script/store";
+import Vue from 'vue'
 import testcampInfo from "./testcampInfo.vue";
 
 export default {
@@ -124,15 +163,75 @@ export default {
         testcampInfo,
     },
   
-  data() {
-    return {
-      errorMessage: "",
-      successMessage: "",
-      tableShow: true,
-    };
-  },
-  computed: {
+    data() {
+        return {
+            errorMessage: "",
+            successMessage: "",
+            tableShow: true,
+            testcampList: [],
+            newTestcamp:{
+                address: ""
+            },
+            testcampInfoPopupShow: false,
+            selectedTestcampId: "",
+        };
+    },
+    computed: {
 
-  }
+    },
+    methods:{
+        async getTestcampList(){
+            const response = await fetch(`http://localhost:3000/api/testcamp`, {
+                credentials: "include",
+            });
+        this.testcampList = await response.json();
+        // console.log(this.testcampList);
+        },
+        async deleteTestcamp(id) {
+            const response = await fetch(`http://localhost:3000/api/testcamp/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+            if (response.status != 200) {
+                const data = await response.text();
+                console.log(data);
+            }
+            await this.getTestcampList();
+        },
+        async addTestcamp() {
+            store.action.showLoading();
+            this.successMessage = "";
+            this.errorMessage = "";
+            const response = await fetch(`http://localhost:3000/api/testcamp`, {
+                credentials: "include",
+                method: "POST",
+                headers: {
+                "Content-type": "application/json",
+                },
+                body: JSON.stringify(this.newTestcamp),
+            });
+            if (response.status > 300) {
+                this.errorMessage = JSON.parse(await response.text()).error;
+                // this.errorMessage = "All fields are required"
+                store.action.hideLoading();
+            } else {
+                this.tableShow = true;
+                this.newTestcamp = {}
+                document.getElementById("testcampListBut").click();
+                Vue.notify({
+                    group: 'foo',
+                    title: 'Thành công!',
+                    text: 'Bạn đã thêm mới một điểm xét nghiệm',
+                    type: "success",
+                })
+            }
+            
+            await this.getTestcampList();
+            store.action.hideLoading();
+        },
+    },
+    created() {
+        this.getTestcampList();
+    },
 };
 </script>

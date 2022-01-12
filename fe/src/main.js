@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import Notifications from 'vue-notification'
 import 'bootstrap'
 import {store} from './script/store';
 
@@ -66,6 +67,8 @@ const router = new VueRouter({
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
+
+Vue.use(Notifications)
 
 Vue.prototype.$server = `http://localhost:3000`;
 Vue.prototype.$store = store;

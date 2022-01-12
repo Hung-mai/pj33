@@ -25,7 +25,7 @@ module.exports = {
         })
     },
     update: (req, res) => {
-        let query = `UPDATE ${process.env.DB_NAME || "project3"}.testcamp SET campId = ${req.body.campId}, address = '${req.body.address}' WHERE (testcampId = ${req.params.id})`;
+        let query = `UPDATE ${process.env.DB_NAME || "project3"}.testcamp SET address = '${req.body.address}' WHERE (campId = ${req.params.id})`;
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);
@@ -38,7 +38,7 @@ module.exports = {
         })
     },
     store: (req, res) => {
-        let query = `INSERT INTO ${process.env.DB_NAME || "project3"}.testcamp (campId, address) VALUES (${req.body.campId}, '${req.body.address}');`
+        let query = `INSERT INTO ${process.env.DB_NAME || "project3"}.testcamp (address) VALUES ('${req.body.address}');`
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);
