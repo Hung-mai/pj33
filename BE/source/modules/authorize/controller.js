@@ -31,5 +31,11 @@ module.exports = {
             console.log(error);
             res.status(500).send("Internal Server Error")
         }
+    },
+    logout: (req, res) => {
+        delete req.session.staffId;
+        delete req.session.hospitalId;
+        delete req.session.roleId;
+        res.status(200).send("Logged out");
     }
 }

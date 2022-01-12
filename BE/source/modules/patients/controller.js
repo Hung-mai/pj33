@@ -15,6 +15,7 @@ module.exports = {
       let result = await Patient.createPatient(req.body);
       res.status(200).send("Create patient successfully");
     } catch (error) {
+      console.log(error);
         res.status(400).send(error);
     }
   },

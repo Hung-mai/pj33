@@ -37,7 +37,6 @@
                     <input
                         v-model="patientInfo.patientName"
                         type="text"
-                        id="inpPatientName"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -49,7 +48,6 @@
                         v-model="medicalRecord.vaccinesAdministered"
                         type="text"
                         name="hospitalName"
-                        id="inpAddress"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -61,7 +59,6 @@
                         v-model="medicalRecord.spO2"
                         type="text"
                         name="hospitalName"
-                        id="inpPhone"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -73,7 +70,6 @@
                         v-model="medicalRecord.backgroundDisease"
                         type="text"
                         name="hospitalName"
-                        id="inpIdentifyNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -85,7 +81,6 @@
                         v-model="medicalRecord.breathingFrequency"
                         type="text"
                         name="hospitalName"
-                        id="inpHealthInsuranceNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -97,7 +92,6 @@
                         v-model="medicalRecord.heartbeat"
                         type="text"
                         name="hospitalName"
-                        id="inpRoomId"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -109,7 +103,6 @@
                         v-model="medicalRecord.bloodPresure"
                         type="text"
                         name="hospitalName"
-                        id="inpRoomId"
                         class="m-input m-col-9 m-col"
                     />
                   </div>

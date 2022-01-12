@@ -37,7 +37,6 @@
                     <input
                         v-model="patientInfo.patientName"
                         type="text"
-                        id="inpPatientName"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -50,7 +49,6 @@
                     <input
                         v-model="patientInfo.patientId"
                         type="text"
-                        id="inpPatientId"
                         class="m-input m-col-9 m-col"
                     />
                   </div> -->
@@ -62,7 +60,6 @@
                         v-model="patientInfo.address"
                         type="text"
                         name="hospitalName"
-                        id="inpAddress"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -74,7 +71,6 @@
                         v-model="patientInfo.phone"
                         type="text"
                         name="hospitalName"
-                        id="inpPhone"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -86,7 +82,6 @@
                         v-model="patientInfo.identifyNumber"
                         type="text"
                         name="hospitalName"
-                        id="inpIdentifyNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -98,7 +93,6 @@
                         v-model="patientInfo.healthInsuranceNumber"
                         type="text"
                         name="hospitalName"
-                        id="inpHealthInsuranceNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -110,7 +104,6 @@
                         v-model="patientInfo.dob"
                         type="date"
                         name="hospitalName"
-                        id="inpDoB"
                         class=" m-col-9 m-col"
                     />
                   </div>
@@ -121,7 +114,7 @@
                     <select
                         v-model="patientInfo.hospitalName"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="hospital in hospitalList"
@@ -140,8 +133,7 @@
                         v-model="patientInfo.roomNumber"
                         type="text"
                         name="hospitalName"
-                        id="inpRoomId"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     />
                   </div>
 

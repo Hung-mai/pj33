@@ -23,7 +23,6 @@
               autocomplete="username"
               class="form-control"
               name="username"
-              id="inpUsername"
               placeholder="Username"
               v-model="username"
             />
@@ -35,7 +34,6 @@
               type="password"
               name="password"
               class="form-control"
-              id="inpPassword"
               autocomplete="new-password"
               placeholder="Password"
               v-model="password"

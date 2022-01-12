@@ -6,9 +6,11 @@
       </div>
     </div>
 
-    <div class="m-col m-col-3">
-      <div class="m-row name align-items-center">{{storedState.user.staffName}}</div>
-      
+    <div class="m-col m-col-3 d-flex">
+      <div class="m-row name align-items-center">
+        <div>{{ storedState.user.staffName }}</div>
+        <button class="m-btn btn-danger" @click="logout()">Log out</button>
+      </div>
     </div>
   </div>
 </template>
@@ -18,8 +20,20 @@ export default {
   name: "TheHeader",
   data() {
     return {
-      storedState: this.$store.state
-    }
-  }
+      storedState: this.$store.state,
+    };
+  },
+  methods: {
+    async logout() {
+      this.$store.action.showLoading();
+      let response = await fetch(`http://localhost:3000/login/logout`, {
+        credentials: "include",
+      });
+      let data = await response.text();
+      console.log(data);
+      this.$store.action.hideLoading();
+      this.$router.push('/login');
+    },
+  },
 };
 </script>

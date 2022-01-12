@@ -111,7 +111,6 @@
                       v-model="hospitalInfo.address"
                       type="text"
                       name="hospitalName"
-                      id="inpAddress"
                       class="m-input m-col-9 m-col"
                     />
                   </div>

@@ -115,7 +115,6 @@
                     <input
                         v-model="patientInfo.patientName"
                         type="text"
-                        id="inpPatientName"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -128,7 +127,6 @@
                     <input
                         v-model="patientInfo.patientId"
                         type="text"
-                        id="inpPatientId"
                         class="m-input m-col-9 m-col"
                     />
                   </div> -->
@@ -139,7 +137,6 @@
                     <input
                         v-model="patientInfo.address"
                         type="text"
-                        id="inpAddress"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -150,7 +147,6 @@
                     <input
                         v-model="patientInfo.phone"
                         type="text"
-                        id="inpPhone"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -161,7 +157,6 @@
                     <input
                         v-model="patientInfo.identifyNumber"
                         type="text"
-                        id="inpIdentifyNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -172,7 +167,6 @@
                     <input
                         v-model="patientInfo.healthInsuranceNumber"
                         type="text"
-                        id="inpHealthInsuranceNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -183,7 +177,6 @@
                     <input
                         v-model="patientInfo.dob"
                         type="date"
-                        id="inpDoB"
                         class=" m-col-9 m-col"
                     />
                   </div>
@@ -194,7 +187,6 @@
                     <input
                         v-model="patientInfo.sex"
                         type="text"
-                        id="inpHealthInsuranceNumber"
                         class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -205,7 +197,7 @@
                     <select
                         v-model="patientInfo.hospitalName"
                         type="text"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     >
                       <option
                           v-for="hospital in hospitalList"
@@ -223,8 +215,7 @@
                     <input
                         v-model="patientInfo.roomNumber"
                         type="text"
-                        id="inpRoomId"
-                        class="m-input m-col-9 m-col"
+                        class="m-input m-col-9"
                     />
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
@@ -234,7 +225,6 @@
                     <input
                         v-model="patientInfo.startTime"
                         type="date"
-                        id="inpStartTime"
                         class=" m-col-9 m-col"
                     />
                   </div>
@@ -285,7 +275,7 @@
         medicalRecordPopUp = false;
       "
     ></medical-record-popup>
-    --------------   Modal ends here  -------------
+    <!-- --------------   Modal ends here  ------------- -->
   </div>
 </template>
 

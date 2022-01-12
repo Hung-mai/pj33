@@ -128,7 +128,6 @@
                       v-model="staffInfo.staffName"
                       type="text"
                       name="staffName"
-                      id="inpStaffName"
                       class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -140,7 +139,6 @@
                       v-model="staffInfo.phone"
                       type="text"
                       name="staffName"
-                      id="inpPhone"
                       class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -152,8 +150,7 @@
                       v-model="staffInfo.dob"
                       type="date"
                       name="staffName"
-                      id="inpDoB"
-                      class="m-input m-col-9 m-col"
+                      class="m-input m-col-9"
                     />
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
@@ -166,8 +163,7 @@
                       v-model="staffInfo.hospitalId"
                       type="text"
                       name="hospital"
-                      id="inpHospital"
-                      class="m-input m-col-9 m-col"
+                      class="m-input m-col-9"
                     >
                       <option
                         v-for="hospital in normalizedHospitalList"
@@ -185,8 +181,7 @@
                     <select
                       v-model="staffInfo.roleId"
                       name="staffName"
-                      id="inpRole"
-                      class="m-input m-col-9 m-col"
+                      class="m-input m-col-9"
                     >
                       <option
                         v-for="role in normalizedRoleList"
@@ -205,7 +200,6 @@
                       v-model="staffInfo.address"
                       type="text"
                       name="staffName"
-                      id="inpAddress"
                       class="m-input m-col-9 m-col"
                     />
                   </div>
@@ -260,6 +254,7 @@ import StaffInfoPopup from "./StaffInfoPopup.vue";
 
 export default {
   name: "Staff",
+  props: ['user'],
   components: {
     StaffInfoPopup,
   },
@@ -285,9 +280,6 @@ export default {
     };
   },
   computed: {
-    user() {
-      return this.storedState.user;
-    },
     queriedHospitalList() {
       let result = [
         {
@@ -305,7 +297,7 @@ export default {
     },
     normalizedRoleList() {
       let result = [];
-      if (this.storedState.user.hospitalId != 1) {
+      if (this.user.hospitalId != 1) {
         result = this.roleList.filter(role => role.roleId != 1 && role.roleId != 4);
       } else {
         result = this.roleList;
@@ -315,7 +307,10 @@ export default {
     normalizedHospitalList() {
       let result = [];
       if (this.storedState.user.roleId != 1) {
-        result = this.hospitalList.filter(hospital => hospital.hospitalId != 1);
+        result = [{
+          hospitalId: this.user.hospitalId,
+          name: this.user.hospitalName
+        }];
       } else {
         result = this.hospitalList;
       }
