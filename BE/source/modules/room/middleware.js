@@ -1,3 +1,5 @@
+const Room = require("./model");
+
 module.exports = {
     // Only with normal hospital
     hospitalIdValidate: (req, res, next) => {
@@ -11,7 +13,7 @@ module.exports = {
         } else next();
     },
 
-    bedsValidate: (req, res, next) => {
-        
+    bedsValidate: async (req, res, next) => {
+        let isFull = await Room.checkFull(req.body.roomId);
     }
 }

@@ -20,8 +20,13 @@ class Room {
     static async getRoomDetailsById(roomId, hospitalId) {
         let query = `SELECT * FROM Room WHERE roomId=${roomId} AND hospitalId=${hospitalId}`;
         let result = await db.queryDB(query);
+        let patients = await Room.countPatients(roomId);
         if (result.length < 0) return null;
-        else return result[0];
+        else {
+            let finalResult = result[0];
+            finalResult.patients = patients;
+            return finalResult;
+        }
     }
 
     static async addRoomToHospital(roomNumber, beds, hospitalId) {
@@ -44,6 +49,19 @@ class Room {
         let result = await db.queryDB(query);
         if (result.length == 0) throw new Error("Không tìm thấy phòng");
         else return result[0].PatientCount;
+    }
+
+    static async countBeds(roomId) {
+        let query = `SELECT * FROM Room WHERE RoomId=${roomId}`;
+        let result = await db.queryDB(query);
+        if (result.length == 0) throw new Error("Không tìm thấy phòng");
+        else return result[0].beds;
+    }
+
+    static async checkFull(roomId) {
+        let [beds, patients] = await Promise.all([Room.countBeds(roomId), Room.countPatients(roomId)]);
+        if (beds >= patients) return true;
+        else return false;
     }
 }
 

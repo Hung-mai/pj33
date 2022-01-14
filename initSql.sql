@@ -9,7 +9,7 @@ CREATE TABLE Hospital (
     PRIMARY KEY (hospitalId)
 );
 
-INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `rooms`, `type`) VALUES ('1', 'Sở y tế', 'Hà Nội', 0, 0);
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('1', 'Sở y tế', 'Hà Nội', 0);
 
 CREATE TABLE Role (
     roleId int NOT NULL AUTO_INCREMENT,
@@ -101,15 +101,6 @@ CREATE TABLE MedicalRecord (
     PRIMARY KEY (recordId),
     FOREIGN KEY (staffId) REFERENCES Staff(staffId),
     FOREIGN KEY (patientId) REFERENCES Patient(patientId)
-);
-
-CREATE TABLE InCharge (
-	id int NOT NULL AUTO_INCREMENT,
-    campId int NOT NULL,
-    staffId int NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (staffId) REFERENCES Staff(staffId),
-    FOREIGN KEY (campId) REFERENCES TestCamp(campId)
 );
 
 CREATE TABLE Discharge (
