@@ -258,7 +258,7 @@
       <!------ Edit Department Modal Start ---------->
     </div>
     <!-----------  Content Menu Tab Ends   ------------>
-    <patient-info-popup
+    <admin-patient-info-popup
         :show="patientInfoPopup"
         :selectedPatientId="selectedPatientId"
         :hospitalList="queriedHospitalList"
@@ -266,32 +266,19 @@
         selectedPatientId = ''
         patientInfoPopup = false;
       "
-    ></patient-info-popup>
-    <medical-record-popup
-        :show="medicalRecordPopUp"
-        :selectedPatientId="selectedPatientId"
-        @new-medical-record="getPatientList()"
-        @popup-close="
-        selectedPatientId = ''
-        medicalRecordPopUp = false;
-      "
-    ></medical-record-popup>
+    ></admin-patient-info-popup>
     <!-- --------------   Modal ends here  ------------- -->
   </div>
 </template>
 
 <script>
 import { store } from "../../../script/store";
-import PatientInfoPopup from "./PatientInfoPopup";
-import MedicalRecordPopup from "./MedicalRecordPopUp.vue";
+import AdminPatientInfoPopup from "./AdminPatientInfoPopup";
 
 export default {
-  components: {PatientInfoPopup, MedicalRecordPopup },
-  name: "Patient",
   props: ["user"],
-  component: {
-    PatientInfoPopup,
-    MedicalRecordPopup
+  components: {
+    AdminPatientInfoPopup,
   },
   data() {
     return {

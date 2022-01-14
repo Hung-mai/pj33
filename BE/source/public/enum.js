@@ -6,6 +6,12 @@ const Level = {
     UNKNOW: 5
 };
 
+const hospitalType = {
+    base: 0,
+    hospital: 1,
+    testcamp: 2
+}
+
 const Role = {
     'Nhân viên Sở y tế': 1,
     'Y tá': 2,

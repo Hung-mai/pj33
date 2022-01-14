@@ -22,7 +22,7 @@ module.exports = {
                     req.session.hospitalId = result[0].hospitalId;
                     req.session.roleId = result[0].roleId;
                     req.session.staffId = result[0].staffId;
-                    res.status(200).send(true);
+                    res.status(200).send(result[0]);
                 }
             } else {
                 res.status(400).send("Tài khoản và mật khẩu không hợp lệ")

@@ -5,14 +5,24 @@ import Notifications from 'vue-notification'
 import 'bootstrap'
 import {store} from './script/store';
 
-import Index from './view/index/Index.vue';
+// import Index from './view/index/Index.vue';
 import Login from './view/login/Login.vue';
 
-import Staff from './view/index/staff/Staff.vue';
-import Hospital from './view/index/hospital/Hospital.vue';
-import Patient from "./view/index/patient/Patient";
-import testcamp from "./view/index/testcamp/testcamp.vue";
-import NotFound from './view/index/error/NotFound.vue';
+import AdminIndex from './view/admin/AdminIndex.vue';
+import HospitalAdminIndex from './view/hospitaladmin/HospitalAdminIndex.vue';
+import HospitalStaffIndex from './view/hospitalstaff/HospitalStaffIndex.vue';
+import TestcampStaffIndex from './view/testcampstaff/TestcampStaffIndex.vue';
+
+import AdminHospital from './view/admin/hospital/AdminHospital.vue';
+import AdminStaff from './view/admin/staff/AdminStaff.vue';
+import AdminTestcamp from './view/admin/testcamp/AdminTestcamp.vue';
+import AdminPatient from './view/admin/patient/AdminPatient.vue';
+
+// import Staff from './view/index/staff/Staff.vue';
+// import Hospital from './view/index/hospital/Hospital.vue';
+// import Patient from "./view/index/patient/Patient";
+// import testcamp from "./view/index/testcamp/testcamp.vue";
+// import NotFound from './view/index/error/NotFound.vue';
 
 const routes = [
   {
@@ -20,43 +30,43 @@ const routes = [
     component: Login
   },
   {
-    path: '/',
-    component: Index,
+    path: '/admin',
+    component: AdminIndex,
     children: [
       {
-        path: '/staff',
-        component: Staff
+        path: "/admin/staff",
+        component: AdminStaff
       },
       {
-        path: '/hospital',
-        component: Hospital
+        path: "/admin/hospital",
+        component: AdminHospital
       },
       {
-        path: '/patient',
-        component: Patient
+        path: "/admin/testcamp",
+        component: AdminTestcamp
       },
       {
-        path: '/notfound',
-        component: NotFound
-      },
-      {
-        path: '/testcamp',
-        component: testcamp,
-        // beforeEnter: (to, from, next) => {
-        //   if (store.state.user.roleId == 1 && store.state.user.hospitalId == 1) next();
-        //   else next('/staff');
-        // }
-      },
-      {
-        path: '/',
-        redirect: "/patient"
+        path: "/admin/patient",
+        component: AdminPatient
       }
     ]
   },
   {
-    path: '/:pathMatch(.*)*',
-    redirect: '/login'
-  }
+    path: '/hospitaladmin',
+    component: HospitalAdminIndex
+  },
+  {
+    path: '/hospitalstaff',
+    component: HospitalStaffIndex
+  },
+  {
+    path: '/testcampstaff',
+    component: TestcampStaffIndex
+  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: '/login'
+  // }
 ]
 
 const router = new VueRouter({

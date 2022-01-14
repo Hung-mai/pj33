@@ -25,4 +25,4 @@ const router = require('./models/router');
 router(app);
 app.listen(port);
 
-console.log('RESTful API server started on: ' + port);
+console.log('API server started on: ' + port);

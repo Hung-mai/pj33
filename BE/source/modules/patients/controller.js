@@ -66,16 +66,17 @@ module.exports = {
       let result = await Patient.updatePatient(req.params.id, req.body);
       res.status(200).send("Update patient successfully");
     } catch (error) {
+      console.log(error);
         res.status(400).send(error);
-        if (error.kind === 'not_found') {
-          res.status(404).send({
-            message: `Not found Patient with id ${req.params.id}.`,
-          });
-        } else {
-          res.status(500).send({
-            message: 'Error updating Patient with id ' + req.params.id,
-          });
-        }
+        // if (error.kind === 'not_found') {
+        //   res.status(404).send({
+        //     message: `Not found Patient with id ${req.params.id}.`,
+        //   });
+        // } else {
+        //   res.status(500).send({
+        //     message: 'Error updating Patient with id ' + req.params.id,
+        //   });
+        // }
     }
   },
 

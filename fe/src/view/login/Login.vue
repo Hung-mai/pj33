@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { store } from '../../script/store';
 export default {
   name: "Login",
   data() {
@@ -82,7 +83,11 @@ export default {
           }),
         });
         if (response.status == 200) {
-          this.$router.push('/');
+          store.state.user = await response.json();
+          if (store.state.user.roleId == 0) {
+            this.$router.push('/admin/staff');
+          }
+          
         } else {
           this.errorMessage = await response.text();
         }

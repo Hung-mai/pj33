@@ -176,7 +176,6 @@
 import {store} from "../../../script/store";
 
 export default {
-  name: "PatientInfoPopup",
   props: ["show", "selectedPatientId", "hospitalList"],
   data() {
     return {

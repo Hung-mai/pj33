@@ -6,6 +6,7 @@ CREATE TABLE Hospital (
     name varchar(255) NOT NULL,
     address varchar(255) NOT NULL,
     rooms int NOT NULL,
+    type int NOT NULL,
     PRIMARY KEY (hospitalId)
 );
 
@@ -102,12 +103,6 @@ CREATE TABLE MedicalRecord (
     PRIMARY KEY (recordId),
     FOREIGN KEY (staffId) REFERENCES Staff(staffId),
     FOREIGN KEY (patientId) REFERENCES Patient(patientId)
-);
-
-CREATE TABLE TestCamp (
-	campId int NOT NULL AUTO_INCREMENT,
-    address varchar(255) NOT NULL,
-    PRIMARY KEY (campId)
 );
 
 CREATE TABLE InCharge (

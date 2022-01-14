@@ -1,4 +1,5 @@
 const db = require('../../models/db');
+const toSQLDate = require('../../utils/toSQLDate');
 
 class Patient {
     static async getAll() {
@@ -22,7 +23,7 @@ class Patient {
     }
 
     static async updatePatient(id, body) {
-        let query = `UPDATE patient SET hospitalId = ${body.hospitalId}, roomId = '${body.roomId}', patientName = '${body.patientName}', identifyNumber = '${body.identifyNumber}', healthInsuranceNumber = '${body.healthInsuranceNumber}', address = '${body.address}', phone = '${body.phone}', dob = '${body.dob}', sex = '${body.sex}', startTime = '${body.startTime}', endTime = '${body.endTime}' WHERE (patientId = ${id})`;
+        let query = `UPDATE patient SET hospitalId = ${body.hospitalId}, roomId = '${body.roomId}', patientName = '${body.patientName}', identifyNumber = '${body.identifyNumber}', healthInsuranceNumber = '${body.healthInsuranceNumber}', address = '${body.address}', phone = '${body.phone}', dob = '${body.dob}', sex = '${body.sex}', startTime = '${toSQLDate(body.startTime)}', endTime = '${toSQLDate(body.endTime)}' WHERE (patientId = ${id})`;
         return await db.queryDB(query);
     }
 

@@ -373,7 +373,7 @@ export default {
         this.errorMessage = await response.text();
       } else {
         this.medicalRecord = {};
-        await this.getPatientList();
+        this.$emit('new-medical-record')
         this.successMessage = await response.text();
       }
       store.action.hideLoading();
