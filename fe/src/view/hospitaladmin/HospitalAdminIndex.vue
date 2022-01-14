@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async getUserInfo() {
-      const result = await this.$stored.action.getUser();
+      const result = await this.$store.action.getUser();
       this.user = this.$store.state.user;
       if (result == false) {
         document.cookie = "";

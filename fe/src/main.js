@@ -18,6 +18,9 @@ import AdminStaff from './view/admin/staff/AdminStaff.vue';
 import AdminTestcamp from './view/admin/testcamp/AdminTestcamp.vue';
 import AdminPatient from './view/admin/patient/AdminPatient.vue';
 
+import HospitalAdminStaff from './view/hospitaladmin/staff/HospitalAdminStaff.vue';
+import HospitalAdminRoom from './view/hospitaladmin/room/HospitalAdminRoom.vue';
+
 // import Staff from './view/index/staff/Staff.vue';
 // import Hospital from './view/index/hospital/Hospital.vue';
 // import Patient from "./view/index/patient/Patient";
@@ -53,7 +56,17 @@ const routes = [
   },
   {
     path: '/hospitaladmin',
-    component: HospitalAdminIndex
+    component: HospitalAdminIndex,
+    children: [
+      {
+        path: '/hospitaladmin/staff',
+        component: HospitalAdminStaff
+      },
+      {
+        path: '/hospitaladmin/room',
+        component: HospitalAdminRoom
+      }
+    ]
   },
   {
     path: '/hospitalstaff',
@@ -63,10 +76,10 @@ const routes = [
     path: '/testcampstaff',
     component: TestcampStaffIndex
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: '/login'
-  // }
+  {
+    path: '/',
+    redirect: '/login'
+  }
 ]
 
 const router = new VueRouter({

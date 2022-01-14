@@ -29,18 +29,28 @@ class Room {
         }
     }
 
+    static async checkDuplicateRoomNumber(roomNumber, hospitalId) {
+        let query = `SELECT * FROM Room WHERE roomNumber=${roomNumber} AND hospitalId=${hospitalId}`;
+        let result = await db.queryDB(query);
+        if (result.length > 0) return true;
+        else return false;
+    }
+
     static async addRoomToHospital(roomNumber, beds, hospitalId) {
         let query = `INSERT INTO Room (roomNumber, hospitalId, beds) VALUES (${roomNumber}, ${hospitalId}, ${beds})`;
         return await db.queryDB(query);
     }
 
-    static async updateRoom(roomId, roomNumber, beds) {
-        let query = `UPDATE Room SET roomNumber=${roomNumber}, beds=${beds} WHERE roomId=${roomId}`;
+    static async updateRoom(roomId, roomNumber, beds, hospitalId) {
+        let query = `UPDATE Room SET roomNumber=${roomNumber}, beds=${beds} WHERE roomId=${roomId} AND hospitalId=${hospitalId}`;
         return await db.queryDB(query);
     } 
 
     static async deleteRoom(roomId) {
         let query = `DELETE FROM Room WHERE roomId=${roomId}`;
+        // Delete all relationship with staff
+        let queryDeleteRoomFromRoomMaster = `DELETE FROM RoomMaster WHERE roomId=${roomId}`;
+        await db.queryDB(queryDeleteRoomFromRoomMaster);
         return await db.queryDB(query);
     }
 

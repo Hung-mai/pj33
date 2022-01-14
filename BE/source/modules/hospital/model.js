@@ -11,13 +11,13 @@ class Hospital {
         return await db.queryDB(query);
     }
 
-    static async insert(name, address, rooms) {
-        let query = `INSERT INTO hospital (name, address, rooms, type) VALUES ("${name}", "${address}", ${rooms}, ${hospitalType.hospital})`;
+    static async insert(name, address) {
+        let query = `INSERT INTO hospital (name, address, type) VALUES ("${name}", "${address}", ${hospitalType.hospital})`;
         return await db.queryDB(query);
     }
 
-    static async update(id, name, address, rooms) {
-        let query = `UPDATE hospital SET name='${name}', address='${address}', rooms=${rooms} WHERE hospitalId=${id}`;
+    static async update(id, name, address) {
+        let query = `UPDATE hospital SET name='${name}', address='${address}' WHERE hospitalId=${id}`;
         return await db.queryDB(query);
     }
 

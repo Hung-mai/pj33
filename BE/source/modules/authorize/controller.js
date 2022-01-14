@@ -23,6 +23,7 @@ module.exports = {
                     req.session.roleId = result[0].roleId;
                     req.session.staffId = result[0].staffId;
                     req.session.hospitalType = result[0].hospitalType;
+                    result[0].password = '';
                     res.status(200).send(result[0]);
                 }
             } else {

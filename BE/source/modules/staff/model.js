@@ -31,7 +31,7 @@ class Staff {
     }
 
     static async getOneByUsername(username) {
-        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.staff WHERE username = '${username}'`;
+        let query = `SELECT staff.staffId, staff.hospitalId, staff.staffName, staff.dob, staff.phone, staff.address, staff.roleId, staff.username, staff.password, hospital.name as hospitalName, hospital.type as hospitalType FROM staff INNER JOIN hospital ON hospital.hospitalId = staff.hospitalId WHERE username = '${username}'`;
         return await db.queryDB(query);
     }
 

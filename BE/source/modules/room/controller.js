@@ -43,7 +43,7 @@ module.exports = {
     },
     updateRoom: async (req, res) => {
         try {
-            let result = await Room.updateRoom(req.params.id, req.params.roomNumber, req.params.beds);
+            let result = await Room.updateRoom(req.params.id, req.params.roomNumber, req.params.beds, req.session.hospitalId);
             if (result.affecedRows < 1) {
                 res.status(200).send("Sửa thất bại");
             } else {
