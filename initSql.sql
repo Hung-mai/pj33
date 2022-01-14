@@ -5,7 +5,6 @@ CREATE TABLE Hospital (
     hospitalId int NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     address varchar(255) NOT NULL,
-    rooms int NOT NULL,
     type int NOT NULL,
     PRIMARY KEY (hospitalId)
 );
@@ -46,7 +45,6 @@ CREATE TABLE Room (
     hospitalId int NOT NULL,
     roomNumber int NOT NULL,
     beds int NOT NULL,
-    patients int NOT NULL,
     PRIMARY KEY (roomId),
     FOREIGN KEY (hospitalId) REFERENCES Hospital(hospitalId)
 );

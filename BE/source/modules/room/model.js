@@ -40,7 +40,10 @@ class Room {
     }
 
     static async countPatients(roomId) {
-        let query = `SELECT Count(PatientId) AS PatientCount`
+        let query = `SELECT Count(PatientId) AS PatientCount FROM Patient WHERE RoomId=${roomId}`;
+        let result = await db.queryDB(query);
+        if (result.length == 0) throw new Error("Không tìm thấy phòng");
+        else return result[0].PatientCount;
     }
 }
 

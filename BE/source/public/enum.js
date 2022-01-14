@@ -21,6 +21,6 @@ const Role = {
 }
 
 module.exports = {
-    Level, Role
+    Level, Role, hospitalType
 }
 
