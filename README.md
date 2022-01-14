@@ -17,4 +17,8 @@
 - Run `yarn serve` in fe folder terminal to run vue development server
 - Run `npm run start` in be folder to run server
 - [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)  
-- [Using cookies with CORS](https://stackoverflow.com/questions/46288437/set-cookies-for-cross-origin-requests)  
+- [Using cookies with CORS](https://stackoverflow.com/questions/46288437/set-cookies-for-cross-origin-requests)
+
+
+# Update SQL
+# 

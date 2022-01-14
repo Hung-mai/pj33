@@ -1,5 +1,5 @@
 const db = require('../../models/db');
-
+const {hospitalType} = require('../../public/enum');
 class Hospital {
     static async getAll() {
         let query = `SELECT * FROM hospital`;
@@ -12,7 +12,7 @@ class Hospital {
     }
 
     static async insert(name, address, rooms) {
-        let query = `INSERT INTO hospital (name, address, rooms) VALUES ("${name}", "${address}", ${rooms})`;
+        let query = `INSERT INTO hospital (name, address, rooms, type) VALUES ("${name}", "${address}", ${rooms}, ${hospitalType.hospital})`;
         return await db.queryDB(query);
     }
 

@@ -26,7 +26,7 @@ class Staff {
      * @param {String} staffId Id của nhân viên y tế
      */
     static async getOneById(staffId) {
-        let query = `SELECT staff.staffId, staff.hospitalId, staff.staffName, staff.dob, staff.phone, staff.address, staff.roleId, staff.username, hospital.name as hospitalName FROM staff INNER JOIN hospital ON hospital.hospitalId = staff.hospitalId WHERE staffId = ${staffId}`;
+        let query = `SELECT staff.staffId, staff.hospitalId, staff.staffName, staff.dob, staff.phone, staff.address, staff.roleId, staff.username, hospital.name as hospitalName, hospital.type as hospitalType FROM staff INNER JOIN hospital ON hospital.hospitalId = staff.hospitalId WHERE staffId = ${staffId}`;
         return await db.queryDB(query);
     }
 
