@@ -18,6 +18,12 @@ import AdminStaff from './view/admin/staff/AdminStaff.vue';
 import AdminTestcamp from './view/admin/testcamp/AdminTestcamp.vue';
 import AdminPatient from './view/admin/patient/AdminPatient.vue';
 
+import HospitalAdminPatient from './view/hospitaladmin/patient/HospitalAdminPatient.vue';
+import HospitalAdminPatientQueue from './view/hospitaladmin/patient-queue/HospitalAdminPatientQueue.vue';
+
+import StaffPatient from './view/hospitalstaff/patient/StaffPatient.vue';
+// import StaffPatientQueue from './view/hospitalstaff/patient-queue/StaffPatientQueue.vue';
+
 // import Staff from './view/index/staff/Staff.vue';
 // import Hospital from './view/index/hospital/Hospital.vue';
 // import Patient from "./view/index/patient/Patient";
@@ -53,11 +59,31 @@ const routes = [
   },
   {
     path: '/hospitaladmin',
-    component: HospitalAdminIndex
+    component: HospitalAdminIndex,
+    children: [
+      {
+        path: "/hospitaladmin/patient",
+        component: HospitalAdminPatient,
+      },
+      {
+        path: "/hospitaladmin/patient-queue",
+        component: HospitalAdminPatientQueue,
+      }
+    ]
   },
   {
     path: '/hospitalstaff',
-    component: HospitalStaffIndex
+    component: HospitalStaffIndex,
+    children: [
+      {
+        path: "/hospitalstaff/patient",
+        component: StaffPatient,
+      },
+      // {
+      //   path: "/hospitalstaff/patient-queue",
+      //   component: StaffPatientQueue,
+      // }
+    ]
   },
   {
     path: '/testcampstaff',

@@ -56,7 +56,8 @@ export default {
           this.$store.state.user.roleId == 1 &&
           this.$store.state.user.hospitalId == 1
         ) {
-          this.$router.push("/hospital");
+          this.$router.push("/hospitaladmin/patient");
+          this.$router.push("/hospitaladmin/patient-queue");
         }
       }
     },

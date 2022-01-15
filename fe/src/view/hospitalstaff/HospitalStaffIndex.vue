@@ -28,7 +28,19 @@ export default {
         {
           name: "Patient",
           link: "/hospitalstaff/patient",
-        }
+        },
+        {
+          name: "Staff",
+          link: "/hospitalstaff/staff",
+        },
+        {
+          name: "Testcamp",
+          link: "/hospitalstaff/room",
+        },
+        // {
+        //   name: "Patient Queue",
+        //   link: "/hospitalstaff/patient-queue",
+        // },
       ],
     };
   },
@@ -44,7 +56,8 @@ export default {
           this.$store.state.user.roleId == 1 &&
           this.$store.state.user.hospitalId == 1
         ) {
-          this.$router.push("/hospital");
+          this.$router.push("/hospitalstaff/patient");
+          this.$router.push("/hospitalstaff/patient-queue");
         }
       }
     },
