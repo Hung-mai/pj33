@@ -84,7 +84,6 @@ export default {
         });
         if (response.status == 200) {
           store.state.user = await response.json();
-          console.log(store.state.user);
           if (store.state.user.roleId == 1) {
             this.$router.push('/admin/staff');
           } else if (store.state.user.roleId == 5) {

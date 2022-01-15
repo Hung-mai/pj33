@@ -159,20 +159,9 @@
                       class="m-label m-col m-col-3 m-auto"
                       >Hospital:
                     </label>
-                    <select
-                      v-model="staffInfo.hospitalId"
-                      type="text"
-                      name="hospital"
-                      class="m-input m-col-9"
-                    >
-                      <option
-                        v-for="hospital in normalizedHospitalList"
-                        :value="hospital.hospitalId"
-                        :key="hospital.hospitalId"
-                      >
-                        {{ hospital.name }}
-                      </option>
-                    </select>
+                    <div class="m-col m-col-9 text-left">
+                      {{ user.hospitalName }}
+                    </div>
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpRole" class="m-label m-col m-col-3 m-auto"
@@ -238,12 +227,26 @@
       :selectedStaffId="selectedStaffId"
       :hospitalList="hospitalList"
       :roleList="roleList"
+      @show-add-room="
+        addRoomPopupShow = true;
+        staffInfoPopupShow = false;
+      "
       @popup-close="
         selectedStaffId = '';
         staffInfoPopupShow = false;
       "
       @popup-save="getStaffList()"
     ></hospital-admin-staff-info-popup>
+    <hospital-admin-staff-add-room
+      v-show="addRoomPopupShow"
+      :show="addRoomPopupShow"
+      :hospitalId="user.hospitalId"
+      :selectedStaffId="selectedStaffId"
+      @add-room-close="
+        addRoomPopupShow = false;
+        staffInfoPopupShow = true;
+      "
+    ></hospital-admin-staff-add-room>
     <!----------------   Modal ends here  --------------->
   </div>
 </template>
@@ -251,12 +254,14 @@
 <script>
 import { store } from "../../../script/store";
 import HospitalAdminStaffInfoPopup from "./HospitalAdminStaffInfoPopup.vue";
+import HospitalAdminStaffAddRoom from "./HospitalAdminStaffAddRoom.vue";
 
 export default {
   name: "Staff",
-  props: ['user'],
+  props: ["user"],
   components: {
     HospitalAdminStaffInfoPopup,
+    HospitalAdminStaffAddRoom,
   },
   data() {
     return {
@@ -270,51 +275,32 @@ export default {
         phone: "",
         dob: "",
         address: "",
-        hospitalId: "",
+        hospitalId: 0,
         roleId: "",
       },
       selectedStaffId: "",
       staffInfoPopupShow: false,
+      addRoomPopupShow: false,
       errorMessage: "",
       successMessage: "",
     };
   },
   computed: {
-    queriedHospitalList() {
-      let result = [
+    normalizedRoleList() {
+      return [
         {
-          hospitalId: "",
-          name: "Tất cả",
+          roleId: 2,
+          roleName: "Y tá",
+        },
+        {
+          roleId: 3,
+          roleName: "Bác sĩ",
+        },
+        {
+          roleId: 5,
+          roleName: "Quản lý bệnh viện",
         },
       ];
-      for (const hospital of this.hospitalList) {
-        result.push({
-          hospitalId: hospital.hospitalId,
-          name: hospital.name,
-        });
-      }
-      return result;
-    },
-    normalizedRoleList() {
-      let result = [];
-      if (this.user.hospitalId != 1) {
-        result = this.roleList.filter(role => role.roleId != 1 && role.roleId != 4);
-      } else {
-        result = this.roleList;
-      }
-      return result;
-    },
-    normalizedHospitalList() {
-      let result = [];
-      if (this.storedState.user.roleId != 1) {
-        result = [{
-          hospitalId: this.user.hospitalId,
-          name: this.user.hospitalName
-        }];
-      } else {
-        result = this.hospitalList;
-      }
-      return result;
     },
     console() {
       return console;
@@ -331,21 +317,25 @@ export default {
       store.action.showLoading();
       this.successMessage = "";
       this.errorMessage = "";
-      const response = await fetch(`http://localhost:3000/api/staff`, {
-        credentials: "include",
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(this.staffInfo),
-      });
+      this.staffInfo.hospitalId = this.user.hospitalId;
+      const response = await fetch(
+        `http://localhost:3000/api/staff/hospitaladmin`,
+        {
+          credentials: "include",
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(this.staffInfo),
+        }
+      );
       if (response.status > 300) {
         this.errorMessage = await response.text();
         store.action.hideLoading();
       } else {
         this.staffInfo = {};
-        this.staffInfo.hospitalId = this.hospitalList[0].hospitalId;
-        this.staffInfo.roleId = this.roleList[0].roleId;
+        this.staffInfo.hospitalId = this.user.hospitalId;
+        this.staffInfo.roleId = this.normalizedRoleList[0].roleId;
         this.successMessage = await response.text();
       }
       await this.getStaffList();
@@ -373,10 +363,10 @@ export default {
     this.getRoleList();
     this.getHospitalList();
     this.getStaffList();
+    this.staffInfo.roleId = this.normalizedRoleList[0].roleId;
   },
   mounted() {
-    this.staffInfo.hospitalId = this.hospitalList[0]?.hospitalId;
-    this.staffInfo.roleId = this.roleList[0]?.roleId;
+    this.staffInfo.hospitalId = this.user.hospitalId;
   },
 };
 </script>

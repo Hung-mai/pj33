@@ -17,6 +17,11 @@ class Room {
         return await db.queryDB(query);
     }
 
+    static async getRoomsByStaffId(staffId) {
+        let query = `SELECT Room.roomNumber, Room.roomId, Room.hospitalId FROM Room INNER JOIN RoomMaster ON Room.roomId=RoomMaster.roomId INNER JOIN Staff ON Staff.staffId=RoomMaster.staffId WHERE Staff.staffId=${staffId}`;
+        return await db.queryDB(query);
+    }
+
     static async getRoomDetailsById(roomId, hospitalId) {
         let query = `SELECT * FROM Room WHERE roomId=${roomId} AND hospitalId=${hospitalId}`;
         let result = await db.queryDB(query);
@@ -72,6 +77,11 @@ class Room {
         let [beds, patients] = await Promise.all([Room.countBeds(roomId), Room.countPatients(roomId)]);
         if (beds >= patients) return true;
         else return false;
+    }
+
+    static async getRoomsStaffNotAssigned(staffId, hospitalId) {
+        let query = `SELECT Room.roomId, Room.roomNumber FROM Room WHERE hospitalId=${hospitalId} AND Room.roomId NOT IN (SELECT Room.roomId FROM Room INNER JOIN RoomMaster ON Room.roomId=RoomMaster.roomId WHERE RoomMaster.staffId=${staffId})`;
+        return await db.queryDB(query);
     }
 }
 

@@ -331,7 +331,7 @@ export default {
       store.action.showLoading();
       this.successMessage = "";
       this.errorMessage = "";
-      const response = await fetch(`http://localhost:3000/api/staff`, {
+      const response = await fetch(`http://localhost:3000/api/staff/admin`, {
         credentials: "include",
         method: "POST",
         headers: {

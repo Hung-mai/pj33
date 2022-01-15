@@ -174,7 +174,7 @@ export default {
       const day =
         theDate.getDate() < 10 ? `0${theDate.getDate()}` : theDate.getDate();
       const month =
-        theDate.getMonth < 9
+        theDate.getMonth() < 9
           ? `0${theDate.getMonth() + 1}`
           : theDate.getMonth() + 1;
       const year = theDate.getFullYear();
@@ -185,7 +185,7 @@ export default {
       store.action.showLoading();
       this.successMessage = '';
       this.errorMessage = '';
-      const response = await fetch(`http://localhost:3000/api/staff/${this.selectedStaffId}`, {
+      const response = await fetch(`http://localhost:3000/api/staff/testcampstaff/${this.selectedStaffId}`, {
         method: "PUT",
         credentials: 'include',
         headers: {

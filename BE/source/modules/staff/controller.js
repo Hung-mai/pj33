@@ -25,25 +25,6 @@ module.exports = {
             res.status(500).send(error);
         }
     },
-    // /**
-    //  * Get staff info from query
-    //  * 
-    //  * @param {Request} req Request
-    //  * @param {Response} res Response
-    //  */
-    // getStaffByHospitalId: async (req, res) => {
-    //     try {
-    //         if (req.query.hospitalId == req.session.hospitalId && // Lấy danh sách nhân viên cơ sở y tế cụ thể, dành cho nhân viên Quản lý cơ sở y tế
-    //             typeof req.query.hospitalId == 'string') {
-    //             let result = await Staff.getByHospitalId(req.query.hospitalId);
-    //             res.send(result);
-    //         } else {
-    //             res.status(400).send("Bad request");
-    //         }
-    //     } catch (error) {
-    //         res.status(500).send(error);
-    //     }
-    // },
     /**
      * Lấy thông tin nhân viên bằng Id
      * @param {Request} req request from client
@@ -72,7 +53,7 @@ module.exports = {
             res.status(500).send("Internal Server Error");
         }
     },
-    put: async (req, res) => {
+    updateStaff: async (req, res) => {
         try {
             let result = await Staff.update(req.params.id, req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address, req.body.roleId);
             if (result.affectedRows == 0) {
@@ -85,7 +66,7 @@ module.exports = {
             res.status(500).send("Internal Server Error");
         }
     },
-    post: async (req, res) => {
+    addStaff: async (req, res) => {
         try {
             let result = await Staff.insert(req.body.hospitalId, req.body.staffName, req.body.phone, toSQLDate(req.body.dob), req.body.address, req.body.roleId);
             if (result.affectedRows == 0) {
@@ -94,6 +75,7 @@ module.exports = {
                 res.status(201).send("Thêm thành công");
             }
         } catch (error) {
+            console.log(error);
             res.status(500).send("Internal Server Error");
         }
     },
@@ -106,7 +88,36 @@ module.exports = {
                 res.status(201).send("Xóa thành công");
             }
         } catch (error) {
-            
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+
+    assignStaffToRoom: async (req, res) => {
+        try {
+            let result = await Staff.assignRoomToStaff(req.body.staffId, req.body.roomId);
+            if (result.affectedRows < 1) {
+                res.status(200).send("Giao phòng không thành công");
+            } else {
+                res.status(201).send("Giao phòng thành công");
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+
+    unassignRoom: async (req, res) => {
+        try {
+            let result = await Staff.unassignRoom(req.body.staffId, req.body.roomId);
+            if (result.affectedRows < 1) {
+                res.status(200).send("Bỏ giao phòng không thành công");
+            } else {
+                res.status(201).send("Bỏ giao phòng thành công");
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
         }
     }
 }
