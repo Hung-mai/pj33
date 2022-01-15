@@ -101,6 +101,83 @@ module.exports = {
       }
     });
   },
+
+  createTransfer: async (req, res) => {
+    // Validate request
+    if (!req.body) {
+      res.status(400).send({
+        message: 'Content can not be empty!',
+      });
+    }
+
+    try {
+      let result = await Patient.createTransfer(req.body);
+      res.status(200).send("Create transfer successfully");
+    } catch (error) {
+      console.log(error);
+        res.status(400).send(error);
+    }
+  },
+
+  getTransfer: async (req, res) => {
+    try {
+      let result = await Patient.getTransfers();
+      console.log(result);
+      res.send(result);
+    } catch (error) {
+      res.status(400).send(error);
+      // res.status(500).send({
+      //   message: error.message || 'Some error occurred while retrieving Patients.',
+      // });
+    }
+  },
+
+  deleteTransfer:  (req, res) => {
+    let query = `DELETE FROM transfer WHERE (id = ${req.params.id})`;
+    db.query(query, (error, response) => {
+      if (error) {
+        if (err.kind === 'not_found') {
+          res.status(404).send({
+            message: `Not found Transfer with id ${req.params.id}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: 'Could not delete Transfer with id ' + req.params.id,
+          });
+        }
+      } else {
+        res.status(200).send({
+          status: 'Success',
+        });
+      }
+    });
+  },
+
+  acceptTransfer: async (req, res) => {
+    // Validate Request
+    if (!req.body) {
+      res.status(400).send({
+        message: 'Content can not be empty!',
+      });
+    }
+
+    try {
+      let result = await Patient.updateTransferStatus(req.params.id, 1);
+      res.status(200).send("Update transfer successfully");
+    } catch (error) {
+      console.log(error);
+        res.status(400).send(error);
+        // if (error.kind === 'not_found') {
+        //   res.status(404).send({
+        //     message: `Not found Patient with id ${req.params.id}.`,
+        //   });
+        // } else {
+        //   res.status(500).send({
+        //     message: 'Error updating Patient with id ' + req.params.id,
+        //   });
+        // }
+    }
+  },
 }
 
 
