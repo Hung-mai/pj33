@@ -40,12 +40,7 @@ export default {
         document.cookie = "";
         this.$router.push("/login");
       } else {
-        if (
-          this.$store.state.user.roleId == 1 &&
-          this.$store.state.user.hospitalId == 1
-        ) {
-          this.$router.push("/hospital");
-        }
+        this.$router.push("/hospitalstaff/patient");
       }
     },
   },

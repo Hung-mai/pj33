@@ -67,7 +67,7 @@
                     v-model="staffInfo.hospitalId"
                     type="text"
                     name="hospital"
-                    class="m-input m-col-9 m-col"
+                    class="m-input m-col-9"
                   >
                     <option
                       v-for="hospital in hospitalList"
@@ -85,7 +85,7 @@
                   <select
                     v-model="staffInfo.roleId"
                     name="staffName"
-                    class="m-input m-col-9 m-col"
+                    class="m-input m-col-9"
                   >
                     <option
                       v-for="role in roleList"
@@ -102,7 +102,7 @@
                     v-model="staffInfo.address"
                     type="text"
                     name="staffName"
-                    class="m-input m-col-9 m-col"
+                    class="m-input m-col-9"
                   />
                 </div>
                 </div>

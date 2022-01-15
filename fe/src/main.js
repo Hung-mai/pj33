@@ -3,7 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import Notifications from 'vue-notification'
 import 'bootstrap'
-import {store} from './script/store';
+import { store } from './script/store';
 
 // import Index from './view/index/Index.vue';
 import Login from './view/login/Login.vue';
@@ -23,6 +23,11 @@ import HospitalAdminRoom from './view/hospitaladmin/room/HospitalAdminRoom.vue';
 
 import testcampstaffPatient from './view/testcampstaff/patient/testcampstaffPatient.vue';
 import testcampstaffStaff from './view/testcampstaff/staff/testcampstaffStaff.vue';
+
+import HospitalAdminPatient from './view/hospitaladmin/patient/HospitalAdminPatient.vue';
+import HospitalAdminPatientQueue from './view/hospitaladmin/patient-queue/HospitalAdminPatientQueue.vue';
+
+import StaffPatient from './view/hospitalstaff/patient/StaffPatient.vue';
 
 // import Staff from './view/index/staff/Staff.vue';
 // import Hospital from './view/index/hospital/Hospital.vue';
@@ -68,12 +73,26 @@ const routes = [
       {
         path: '/hospitaladmin/room',
         component: HospitalAdminRoom
+      },
+      {
+        path: "/hospitaladmin/patient",
+        component: HospitalAdminPatient,
+      },
+      {
+        path: "/hospitaladmin/patient-queue",
+        component: HospitalAdminPatientQueue,
       }
     ]
   },
   {
     path: '/hospitalstaff',
-    component: HospitalStaffIndex
+    component: HospitalStaffIndex,
+    children: [
+      {
+        path: "/hospitalstaff/patient",
+        component: StaffPatient,
+      }
+    ]
   },
   {
     path: '/testcampstaff',

@@ -75,8 +75,8 @@
                 <tr>
                   <th>ID Nhân viên</th>
                   <th>Tên nhân viên</th>
-                  <th>Bệnh viện</th>
                   <th>Vị trí</th>
+                  <th>Cơ sở</th>
                   <th>Số điện thoại</th>
                   <th>Lựa chọn</th>
                 </tr>

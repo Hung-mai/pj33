@@ -75,7 +75,7 @@
                 <tr>
                   <th>ID Nhân viên</th>
                   <th>Tên nhân viên</th>
-                  <th>Bệnh viện</th>
+                  <th>Cơ sở</th>
                   <th>Vị trí</th>
                   <th>Số điện thoại</th>
                   <th>Lựa chọn</th>
@@ -85,8 +85,8 @@
                 <tr v-for="staff in staffList" :key="staff.staffId">
                   <td>{{ staff.staffId }}</td>
                   <td>{{ staff.staffName }}</td>
-                  <td>{{ staff.roleName }}</td>
                   <td>{{ staff.hospitalName }}</td>
+                  <td>{{ staff.roleName }}</td>
                   <td>{{ staff.phone }}</td>
                   <td>
                     <button
