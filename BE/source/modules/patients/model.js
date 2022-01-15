@@ -31,6 +31,21 @@ class Patient {
         let query = `UPDATE patient SET level = ${level} WHERE (patientId = ${id})`;
         return await db.queryDB(query);
     }
+
+    static async createTransfer(body) {
+        let query = `INSERT INTO transfer (patientName, identifyNumber, healthInsuranceNumber, address, phone, dob, sex, leaveDate, status, beforeId, afterId) VALUES (${body.patientName}, '${body.identifyNumber}', '${body.healthInsuranceNumber}', '${body.address}', '${body.phone}', '${body.dob}', '${body.sex}','${body.leaveDate}', '${body.status}', '${body.beforeId}', '${body.afterId}');`;
+        return await db.queryDB(query);
+    }
+ 
+    static async getTransfers() {
+        let query = `SELECT * FROM transfer WHERE (status = 0)`;
+        return await db.queryDB(query);
+    }
+
+    static async updateTransferStatus(id, status) {
+        let query = `UPDATE transfer SET status = ${status} WHERE (id = ${id})`;
+        return await db.queryDB(query);
+    }
 }
 
 module.exports = Patient;

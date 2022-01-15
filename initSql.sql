@@ -10,6 +10,8 @@ CREATE TABLE Hospital (
 );
 
 INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('1', 'Sở y tế', 'Hà Nội', 0);
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('2', 'Testcamp', 'Hà Nội', 2);
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('3', 'Bệnh viện Bạch Mai', 'Bạch Main', 1);
 
 CREATE TABLE Role (
     roleId int NOT NULL AUTO_INCREMENT,
@@ -38,7 +40,11 @@ CREATE TABLE Staff (
     FOREIGN KEY (roleId) REFERENCES Role(roleId)
 );
 
-INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '1', 'Nguyễn Văn A', '000', '1988-02-03', 'ANV000', '000', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '1', 'Nguyễn Văn A', '000', '1988-02-03', '1', '1', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('3', '2', 'Nguyễn Văn B', '000', '1988-02-03', '2', '2', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('3', '3', 'Nguyễn Văn C', '000', '1988-02-03', '3', '3', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('2', '4', 'Nguyễn Văn D', '000', '1988-02-03', '4', '4', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('3', '5', 'Nguyễn Văn E', '000', '1988-02-03', '5', '5', 'Hà Nam');
 
 CREATE TABLE Room (
     roomId int NOT NULL AUTO_INCREMENT,
@@ -117,15 +123,22 @@ CREATE TABLE Discharge (
 
 CREATE TABLE Transfer (
     id INT NOT NULL AUTO_INCREMENT,
-    patientId INT NOT NULL,
+	patientName varchar(255) NOT NULL,
+    identifyNumber varchar(20) NOT NULL,
+    healthInsuranceNumber varchar(20),
+    address varchar(255),
+    phone varchar(20),
+    dob date NOT NULL,
+    sex varchar(20),
     leaveDate DATE NOT NULL,
-    fee INT NOT NULL,
+    status INT NOT NULL,
     beforeId INT NOT NULL,
     afterId INT NOT NULL,
-    status INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (beforeId)
         REFERENCES Hospital (hospitalId),
     FOREIGN KEY (afterId)
         REFERENCES Hospital (hospitalId)
 );
+
+INSERT INTO transfer (patientName, identifyNumber, healthInsuranceNumber, address, phone, dob, sex, leaveDate, status, beforeId, afterId) VALUES ('Vũ Đức Hiếu', '1', '2', 'Hà Nội', '2', '2000-01-01', 'Male','2022-01-01', '0', '2', '1');
