@@ -95,7 +95,7 @@ module.exports = {
 
     assignStaffToRoom: async (req, res) => {
         try {
-            let result = await Staff.assignStaffToRoom(req.body.staffId, req.body.roomId);
+            let result = await Staff.assignRoomToStaff(req.body.staffId, req.body.roomId);
             if (result.affectedRows < 1) {
                 res.status(200).send("Giao phòng không thành công");
             } else {

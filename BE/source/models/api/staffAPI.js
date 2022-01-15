@@ -45,8 +45,11 @@ staffAPI.get('/', staffController.getStaffList)
         staffInfoValidate.checkValidUpdateInfoFromHospitalAdmin,
         staffController.updateStaff
     )
-    .delete('/:id', staffInfoValidate.authorizeDeleteValidate,
+    .delete('/:id',
+        staffInfoValidate.authorizeDeleteValidate,
+        staffInfoValidate.isAssigned,
         staffInfoValidate.selfDeleteValidate,
-        staffController.delete)
+        staffController.delete
+    )
 
 module.exports = staffAPI;

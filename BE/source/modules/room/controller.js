@@ -66,5 +66,14 @@ module.exports = {
             console.log(error);
             res.status(500).send("Internal Server Error");
         }
+    },
+    getRoomsStaffNotAssigned: async (req, res) => {
+        try {
+            let result = await Room.getRoomsStaffNotAssigned(req.params.staffId, req.params.hospitalId);
+            res.status(200).send(result);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
     }
 }

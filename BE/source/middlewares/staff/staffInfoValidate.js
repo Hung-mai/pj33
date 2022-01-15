@@ -23,6 +23,11 @@ module.exports = {
         if (req.session.staffId == req.params.id) res.status(400).send("Không thể xóa chính mình");
         else next();
     },
+    isAssigned: async (req, res, next) => {
+        let rooms = await Room.getRoomsByStaffId(req.params.id);
+        if (rooms.length > 0) res.status(400).send("Nhân viên y tế đang phụ trách phòng bệnh, không thể xóa");
+        else next();
+    },
 
     /**
      * Kiểm tra thông tin thêm nhân viên y tế đối với request từ nhân viên sở y tế

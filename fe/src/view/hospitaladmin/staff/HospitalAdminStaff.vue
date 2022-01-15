@@ -227,12 +227,26 @@
       :selectedStaffId="selectedStaffId"
       :hospitalList="hospitalList"
       :roleList="roleList"
+      @show-add-room="
+        addRoomPopupShow = true;
+        staffInfoPopupShow = false;
+      "
       @popup-close="
         selectedStaffId = '';
         staffInfoPopupShow = false;
       "
       @popup-save="getStaffList()"
     ></hospital-admin-staff-info-popup>
+    <hospital-admin-staff-add-room
+      v-show="addRoomPopupShow"
+      :show="addRoomPopupShow"
+      :hospitalId="user.hospitalId"
+      :selectedStaffId="selectedStaffId"
+      @add-room-close="
+        addRoomPopupShow = false;
+        staffInfoPopupShow = true;
+      "
+    ></hospital-admin-staff-add-room>
     <!----------------   Modal ends here  --------------->
   </div>
 </template>
@@ -240,12 +254,14 @@
 <script>
 import { store } from "../../../script/store";
 import HospitalAdminStaffInfoPopup from "./HospitalAdminStaffInfoPopup.vue";
+import HospitalAdminStaffAddRoom from "./HospitalAdminStaffAddRoom.vue";
 
 export default {
   name: "Staff",
   props: ["user"],
   components: {
     HospitalAdminStaffInfoPopup,
+    HospitalAdminStaffAddRoom,
   },
   data() {
     return {
@@ -264,6 +280,7 @@ export default {
       },
       selectedStaffId: "",
       staffInfoPopupShow: false,
+      addRoomPopupShow: false,
       errorMessage: "",
       successMessage: "",
     };
@@ -347,6 +364,9 @@ export default {
     this.getHospitalList();
     this.getStaffList();
     this.staffInfo.roleId = this.normalizedRoleList[0].roleId;
-  }
+  },
+  mounted() {
+    this.staffInfo.hospitalId = this.user.hospitalId;
+  },
 };
 </script>

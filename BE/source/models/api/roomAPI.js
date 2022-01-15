@@ -6,6 +6,7 @@ const roomInfoValidate = require('../../middlewares/room/roomInfoValidate');
 
 roomAPI.use(roomInfoValidate.hospitalValidate)
     .get('/', roomController.getRoomsByHospitalId)
+    .get('/hospital/:hospitalId/staff/:staffId', roomInfoValidate.sameHospitalValidate, roomController.getRoomsStaffNotAssigned)
     .get('/:id', roomController.getRoomDetailsById)
     .post('/', roomInfoValidate.emptyBodyValidate, roomInfoValidate.duplicateRoomNumberValidate, roomController.addRoom)
     .put('/:id', roomInfoValidate.emptyBodyValidate, roomInfoValidate.duplicateRoomNumberValidate, roomInfoValidate.bedsValidate, roomController.updateRoom)

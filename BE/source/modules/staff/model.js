@@ -28,7 +28,16 @@ class Staff {
      */
     static async getOneById(staffId) {
         let query = `SELECT staff.staffId, staff.hospitalId, staff.staffName, staff.dob, staff.phone, staff.address, staff.roleId, staff.username, hospital.name as hospitalName, hospital.type as hospitalType FROM staff INNER JOIN hospital ON hospital.hospitalId = staff.hospitalId WHERE staffId = ${staffId}`;
-        return await db.queryDB(query);
+        let result = await db.queryDB(query);
+        if (result.length == 0) return result;
+        else {
+            if (result[0].roleId == Role.nurse || result[0].roleId == Role.doctor) {
+                let roomsQuery = `SELECT Room.roomId, Room.roomNumber FROM Room INNER JOIN RoomMaster ON Room.roomId=RoomMaster.roomId WHERE RoomMaster.staffId=${staffId}`;
+                let rooms = await db.queryDB(roomsQuery);
+                result[0].rooms = rooms;
+            }
+            return result;
+        }
     }
 
     static async getOneByUsername(username) {
@@ -71,7 +80,6 @@ class Staff {
 
     static async delete(staffId) {
         let query = `DELETE FROM staff WHERE staffId=${staffId}`;
-        let queryDeleteStaffInRoomMaster = `DELETE FROM RoomMaster WHERE staffId=${staffId}`;
         await db.queryDB(queryDeleteStaffInRoomMaster);
         return await db.queryDB(query);
     }
@@ -93,7 +101,7 @@ class Staff {
         let queryRoom = `SELECT * FROM Room WHERE roomId=${roomId}`;
         let [staffResult, hospitalAdminResult, roomResult] = await Promise.all([db.queryDB(queryStaff), db.queryDB(queryHospitalAdmin), db.queryDB(queryRoom)]);
         if (staffResult.length == 0 || roomResult == 0 || hospitalAdminResult.length == 0) return false;
-        else if (staffResult[0].roleId != Role.doctor && staffResult[0] != Role.nurse) return false;
+        else if (staffResult[0].roleId != Role.doctor && staffResult[0].roleId != Role.nurse) return false;
         else {
             if (staffResult[0].hospitalId != roomResult[0].hospitalId || staffResult[0].hospitalId != roomResult[0].hospitalId) return false;
             else return true;

@@ -62,5 +62,10 @@ module.exports = {
         if (patients > 0) {
             res.status(400).send(`Trong phòng còn ${patients} bệnh nhân`);
         } else next();
+    },
+
+    sameHospitalValidate: (req, res, next) => {
+        if (req.params.hospitalId != req.session.hospitalId) res.status(400).next("Không thể truy cập do không cùng bệnh viện");
+        else next();
     }
 }
