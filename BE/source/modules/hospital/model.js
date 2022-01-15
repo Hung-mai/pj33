@@ -49,7 +49,13 @@ class Hospital {
         let query = `SELECT Count(PatientId) as patients FROM patient WHERE hospitalId=${id}`;
         let result = await db.queryDB(query);
         return result[0].patients;
-    };
+    }
+
+    static async countRooms(id) {
+        let query = `SELECT Count(RoomId) as rooms FROM room WHERE hospitalId=${id}`;
+        let result = await db.queryDB(query);
+        return result[0].rooms;
+    }
 }
 
 module.exports = Hospital;

@@ -14,7 +14,7 @@ module.exports = {
     },
     getById: async (req, res) => {
         try {
-            const [hospital, nurses, doctors, patients] = await Promise.all([Hospital.getById(req.params.id), Hospital.countNurses(req.params.id), Hospital.countDoctors(req.params.id), Hospital.countPatients(req.params.id)]);
+            const [hospital, nurses, doctors, patients, rooms] = await Promise.all([Hospital.getById(req.params.id), Hospital.countNurses(req.params.id), Hospital.countDoctors(req.params.id), Hospital.countPatients(req.params.id), Hospital.countRooms(req.params.id)]);
 
             if (hospital.length == 0) {
                 res.status(204).send({});
@@ -23,6 +23,7 @@ module.exports = {
                 result.nurses = nurses;
                 result.doctors = doctors;
                 result.patients = patients;
+                result.rooms = rooms;
                 res.status(200).send(result)
             }
         } catch (error) {

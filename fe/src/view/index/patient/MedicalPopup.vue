@@ -218,7 +218,7 @@ export default {
       const day =
           theDate.getDate() < 10 ? `0${theDate.getDate()}` : theDate.getDate();
       const month =
-          theDate.getMonth < 9
+          theDate.getMonth() < 9
               ? `0${theDate.getMonth() + 1}`
               : theDate.getMonth() + 1;
       const year = theDate.getFullYear();

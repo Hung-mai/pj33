@@ -1,4 +1,5 @@
 const db = require('../../models/db');
+const { Role } = require('../../public/enum');
 const generateUsername = require('../../utils/generateUsername');
 
 class Staff {
@@ -64,12 +65,49 @@ class Staff {
      */
 
     static async update(staffId, hospitalId, staffName, phone, dob, address, roleId) {
-        let query = `UPDATE ${process.env.DB_NAME || "project3"}.staff SET hospitalId = ${hospitalId}, staffName = '${staffName}', phone = '${phone}', dob = '${dob}', address = '${address}', roleId = ${roleId} WHERE (staffId = ${staffId})`;
+        let query = `UPDATE ${process.env.DB_NAME || "project3"}.staff SET hospitalId=${hospitalId}, staffName = '${staffName}', phone = '${phone}', dob = '${dob}', address = '${address}', roleId = ${roleId} WHERE (staffId = ${staffId})`;
         return await db.queryDB(query);
     }
 
     static async delete(staffId) {
         let query = `DELETE FROM staff WHERE staffId=${staffId}`;
+        let queryDeleteStaffInRoomMaster = `DELETE FROM RoomMaster WHERE staffId=${staffId}`;
+        await db.queryDB(queryDeleteStaffInRoomMaster);
+        return await db.queryDB(query);
+    }
+
+    static async assignRoomToStaff(staffId, roomId) {
+        let query = `INSERT INTO RoomMaster (staffId, roomId) VALUES (${staffId}, ${roomId})`;
+        return await db.queryDB(query);
+    }
+
+    /**
+     * Kiểm tra nhân viên, phòng bệnh và quản lý bệnh viện có thuộc cùng bệnh viện và nhân viên có phải bác sĩ hay y tá
+     * @param {number} staffId 
+     * @param {number} roomId 
+     * @returns {Promise<Boolean>}
+     */
+    static async checkSameHospital(staffId, roomId, hospitalAdminId) {
+        let queryStaff = `SELECT * FROM Staff WHERE staffId=${staffId}`;
+        let queryHospitalAdmin = `SELECT * FROM Staff WHERE staffId=${hospitalAdminId}`;
+        let queryRoom = `SELECT * FROM Room WHERE roomId=${roomId}`;
+        let [staffResult, hospitalAdminResult, roomResult] = await Promise.all([db.queryDB(queryStaff), db.queryDB(queryHospitalAdmin), db.queryDB(queryRoom)]);
+        if (staffResult.length == 0 || roomResult == 0 || hospitalAdminResult.length == 0) return false;
+        else if (staffResult[0].roleId != Role.doctor && staffResult[0] != Role.nurse) return false;
+        else {
+            if (staffResult[0].hospitalId != roomResult[0].hospitalId || staffResult[0].hospitalId != roomResult[0].hospitalId) return false;
+            else return true;
+        }
+    }
+
+    /**
+     * Xóa liên hệ giữa nhân viên y tế và phòng bệnh
+     * @param {*} staffId 
+     * @param {*} roomId 
+     * @returns {Promise<ResultObject>}
+     */
+    static async unassignRoom(staffId, roomId) {
+        let query = `DELETE FROM RoomMaster WHERE staffId=${staffId} AND roomId=${roomId}`;
         return await db.queryDB(query);
     }
 }

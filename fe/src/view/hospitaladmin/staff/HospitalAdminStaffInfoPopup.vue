@@ -63,20 +63,7 @@
                   <label for="inpHospital" class="m-label m-col m-col-3 m-auto"
                     >Hospital:
                   </label>
-                  <select
-                    v-model="staffInfo.hospitalId"
-                    type="text"
-                    name="hospital"
-                    class="m-input m-col-9 m-col"
-                  >
-                    <option
-                      v-for="hospital in hospitalList"
-                      :value="hospital.hospitalId"
-                      :key="hospital.hospitalId"
-                    >
-                      {{ hospital.name }}
-                    </option>
-                  </select>
+                  <div class="m-col m-col-9 text-left">{{hospitalName}}</div>
                 </div>
                 <div class="m-row w-100 justify-content-center mb-2">
                   <label for="inpRole" class="m-label m-col m-col-3 m-auto"
@@ -85,7 +72,7 @@
                   <select
                     v-model="staffInfo.roleId"
                     name="staffName"
-                    class="m-input m-col-9 m-col"
+                    class="m-input m-col-9"
                   >
                     <option
                       v-for="role in roleList"
@@ -137,7 +124,7 @@ import {store} from '../../../script/store';
 
 export default {
   name: "HospitalAdminStaffInfoPopup",
-  props: ["show", "hospitalList", "roleList", "selectedStaffId"],
+  props: ["show", "hospitalList", "selectedStaffId"],
   data() {
     return {
       staffInfo: {
@@ -151,6 +138,29 @@ export default {
       errorMessage: '',
       successMessage: ''
     };
+  },
+  computed: {
+    hospitalName() {
+      let result = '';
+      for (const hospital of this.hospitalList) {
+        if (hospital.hospitalId == this.staffInfo.hospitalId) return hospital.name;
+      }
+      return result;
+    },
+    roleList() {
+      return [
+        {
+          roleId: 2,
+          roleName: "Y tá"
+        }, {
+          roleId: 3,
+          roleName: "Bác sĩ"
+        }, {
+          roleId: 5,
+          roleName: "Quản lý bệnh viện"
+        }
+      ]
+    }
   },
   watch: {
     show: async function () {
@@ -174,7 +184,7 @@ export default {
       const day =
         theDate.getDate() < 10 ? `0${theDate.getDate()}` : theDate.getDate();
       const month =
-        theDate.getMonth < 9
+        theDate.getMonth() < 9
           ? `0${theDate.getMonth() + 1}`
           : theDate.getMonth() + 1;
       const year = theDate.getFullYear();
@@ -185,7 +195,7 @@ export default {
       store.action.showLoading();
       this.successMessage = '';
       this.errorMessage = '';
-      const response = await fetch(`http://localhost:3000/api/staff/${this.selectedStaffId}`, {
+      const response = await fetch(`http://localhost:3000/api/staff/hospitaladmin/${this.selectedStaffId}`, {
         method: "PUT",
         credentials: 'include',
         headers: {

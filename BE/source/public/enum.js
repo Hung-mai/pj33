@@ -13,11 +13,11 @@ const hospitalType = {
 }
 
 const Role = {
-    'Nhân viên Sở y tế': 1,
-    'Y tá': 2,
-    'Bác sĩ': 3,
-    'Nhân viên điểm xét nghiệm': 4,
-    'Quản lý cơ sở y tế': 5,
+    admin: 1,
+    nurse: 2,
+    doctor: 3,
+    testcampstaff: 4,
+    hospitaladmin: 5,
 }
 
 module.exports = {

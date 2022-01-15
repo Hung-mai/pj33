@@ -17,6 +17,11 @@ class Room {
         return await db.queryDB(query);
     }
 
+    static async getRoomsByStaffId(staffId) {
+        let query = `SELECT Room.roomNumber, Room.roomId, Room.hospitalId FROM Room INNER JOIN RoomMaster ON Room.roomId=RoomMaster.roomId INNER JOIN Staff.staffId=RoomMaster.staffId`;
+        return await db.queryDB(query);
+    }
+
     static async getRoomDetailsById(roomId, hospitalId) {
         let query = `SELECT * FROM Room WHERE roomId=${roomId} AND hospitalId=${hospitalId}`;
         let result = await db.queryDB(query);
