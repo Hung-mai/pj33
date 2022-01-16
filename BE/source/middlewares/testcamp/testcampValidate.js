@@ -1,4 +1,4 @@
-const db = require('../../models/db');
+const Staff = require('../../modules/staff/model');
 
 module.exports = {
     emptyValidate: (req, res, next) => {
@@ -11,12 +11,10 @@ module.exports = {
     duplicateNameValidate: (req, res, next) => {
         next();
     },
-    checkStillHasStaff: (req, res, next) => {
-        // console.log(req.params)
-        let query = `SELECT * from Staff WHERE hospitalId = ${req.params.id}`;
-
-        let result = db.queryDB(query) 
-        if(Object.keys(result).length == 0) {
+    checkStillHasStaff: async (req, res, next) => {
+        let result = await Staff.getByHospitalId(req.params.id)
+        
+        if(Object.keys(result).length != 0) {
             res.status(400).send({
                 "error": "Bệnh viện đang còn nhân viên, không thể xóa"
             });

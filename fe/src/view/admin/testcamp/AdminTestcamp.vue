@@ -210,14 +210,15 @@ export default {
             if (response.status != 200) {
                 const data = await response.text();
                 console.log(data);
+            }
 
-                Vue.notify({
+            if(response.status == 400) {
+              Vue.notify({
                     group: 'foo',
                     title: 'Thất bại!',
                     text: 'Bệnh viện vẫn còn nhân viên, không thể xóa',
                     type: "error",
                 })
-
             }
             await this.getTestcampList();
         },
