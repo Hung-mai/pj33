@@ -1,12 +1,28 @@
 const Staff = require('../../modules/staff/model');
+const Hospital = require('../../modules/hospital/model');
 
 module.exports = {
-    emptyValidate: (req, res, next) => {
-        if (!req.body || !req.body.address || !req.body.name)
+    emptyValidate: async (req, res, next) => {
+        let isPass = true;
+        if (!req.body || !req.body.address || !req.body.name){
             res.status(400).send({
                 "error": "All fields are required"
             });
-        else next();
+            isPass = false;
+        }
+
+        let allHospital = await Hospital.getAll();
+        allHospital.forEach(element => {
+            if(element.name == req.body.name) {
+                res.status(400).send({
+                    "error": "Tên bệnh viên đã tồn tại"
+                });
+                isPass = false;
+            }
+        });
+        
+        if(isPass)
+            next();
     },
     duplicateNameValidate: (req, res, next) => {
         next();
