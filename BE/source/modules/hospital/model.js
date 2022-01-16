@@ -11,6 +11,11 @@ class Hospital {
         return await db.queryDB(query);
     }
 
+    static async getAllHospitals() {
+        let query = `SELECT * FROM hospital WHERE type=${hospitalType.hospital}`;
+        return await db.queryDB(query);
+    }
+
     static async insert(name, address) {
         let query = `INSERT INTO hospital (name, address, type) VALUES ("${name}", "${address}", ${hospitalType.hospital})`;
         return await db.queryDB(query);

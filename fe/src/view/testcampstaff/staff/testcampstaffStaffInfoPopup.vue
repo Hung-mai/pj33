@@ -11,7 +11,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Edit Staff Information</h4>
+          <h4 class="modal-title" id="myModalLabel">Thông tin nhân viên y tế</h4>
           <button
             type="button"
             class="btn-close"
@@ -27,87 +27,62 @@
               <div class="form-horizontal">
                 <div class="form-body">
                   <div class="m-row w-100 justify-content-center mb-2">
-                  <label class="m-label m-col m-col-3 m-auto"
-                    >Staff Name:
-                  </label>
-                  <input
-                    v-model="staffInfo.staffName"
-                    type="text"
-                    name="staffName"
-                    class="m-input m-col-9 m-col"
-                  />
+                    <label class="m-label m-col m-col-3 m-auto"
+                      >Tên nhân viên:
+                    </label>
+                    <div class="m-col-9 text-left">
+                      {{ staffInfo.staffName }}
+                    </div>
+                  </div>
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label for="inpPhone" class="m-label m-col m-col-3 m-auto"
+                      >Phone:
+                    </label>
+                    <div class="m-col-9 text-left">
+                      {{ staffInfo.phone }}
+                    </div>
+                  </div>
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label class="m-label m-col m-col-3 m-auto"
+                      >Ngày sinh:
+                    </label>
+                    <div class="m-col-9 text-left">
+                      {{ toDDMMYYYY(staffInfo.dob) }}
+                    </div>
+                  </div>
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label
+                      for="inpHospital"
+                      class="m-label m-col m-col-3 m-auto"
+                      >Điểm xét nghiệm:
+                    </label>
+                    <div class="m-col-9 text-left">
+                      {{ staffInfo.hospitalName }}
+                    </div>
+                  </div>
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label for="inpRole" class="m-label m-col m-col-3 m-auto"
+                      >Vị trí:
+                    </label>
+                    <div name="staffName" class="m-col-9 text-left">
+                      Nhân viên điểm xét nghiệm
+                    </div>
+                  </div>
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label class="m-label m-col m-col-3 m-auto"
+                      >Address:
+                    </label>
+                    <div name="staffName" class="m-col-9 text-left">
+                      {{staffInfo.address}}
+                    </div>
+                  </div>
                 </div>
-                <div class="m-row w-100 justify-content-center mb-2">
-                  <label for="inpPhone" class="m-label m-col m-col-3 m-auto"
-                    >Phone:
-                  </label>
-                  <input
-                    v-model="staffInfo.phone"
-                    type="text"
-                    name="staffName"
-                    class="m-input m-col-9 m-col"
-                  />
-                </div>
-                <div class="m-row w-100 justify-content-center mb-2">
-                  <label class="m-label m-col m-col-3 m-auto"
-                    >Date Of Birth:
-                  </label>
-                  <input
-                    v-model="staffInfo.dob"
-                    type="date"
-                    name="staffName"
-                    class="m-input m-col-9"
-                  />
-                </div>
-                <div class="m-row w-100 justify-content-center mb-2">
-                  <label for="inpHospital" class="m-label m-col m-col-3 m-auto"
-                    >Hospital:
-                  </label>
-                  <select
-                    v-model="staffInfo.hospitalId"
-                    type="text"
-                    name="hospital"
-                    class="m-input m-col-9"
-                  >
-                    <option
-                      v-for="hospital in hospitalList"
-                      :value="hospital.hospitalId"
-                      :key="hospital.hospitalId"
-                    >
-                      {{ hospital.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="m-row w-100 justify-content-center mb-2">
-                  <label for="inpRole" class="m-label m-col m-col-3 m-auto"
-                    >Role:
-                  </label>
-                  <select
-                    v-model="staffInfo.roleId"
-                    name="staffName"
-                    class="m-input m-col-9"
-                  >
-                    <option
-                      v-for="role in roleList"
-                      :value="role.roleId"
-                      :key="role.roleId"
-                    >
-                      {{ role.roleName }}
-                    </option>
-                  </select>
-                </div>
-                <div class="m-row w-100 justify-content-center mb-2">
-                  <label class="m-label m-col m-col-3 m-auto">Address: </label>
-                  <input
-                    v-model="staffInfo.address"
-                    type="text"
-                    name="staffName"
-                    class="m-input m-col-9 m-col"
-                  />
-                </div>
-                </div>
-                <span class="m-label-error" v-show="errorMessage != ''">{{errorMessage}}</span>
-                <span class="m-label-success" v-show="successMessage != ''">{{successMessage}}</span>
+                <span class="m-label-error" v-show="errorMessage != ''">{{
+                  errorMessage
+                }}</span>
+                <span class="m-label-success" v-show="successMessage != ''">{{
+                  successMessage
+                }}</span>
                 <div class="form-group">
                   <div class="modal-footer">
                     <button
@@ -117,9 +92,6 @@
                       @click="$emit('popup-close')"
                     >
                       Đóng
-                    </button>
-                    <button class="btn btn-primary" @click="updateStaffInfo()">
-                      Cập nhật
                     </button>
                   </div>
                 </div>
@@ -133,11 +105,9 @@
 </template>
 
 <script>
-import {store} from '../../../script/store';
-
 export default {
   name: "AdminStaffInfoPopup",
-  props: ["show", "hospitalList", "roleList", "selectedStaffId"],
+  props: ["show", "selectedStaffId"],
   data() {
     return {
       staffInfo: {
@@ -148,15 +118,15 @@ export default {
         hospitalId: "",
         roleId: "",
       },
-      errorMessage: '',
-      successMessage: ''
+      errorMessage: "",
+      successMessage: "",
     };
   },
   watch: {
     show: async function () {
       if (this.show) {
-        this.errorMessage = '';
-        this.successMessage = '';
+        this.errorMessage = "";
+        this.successMessage = "";
         const response = await fetch(
           `http://localhost:3000/api/staff/${this.selectedStaffId}`,
           {
@@ -164,12 +134,11 @@ export default {
           }
         );
         this.staffInfo = await response.json();
-        this.staffInfo.dob = this.toYYYYMMDD(this.staffInfo.dob);
       }
     },
   },
   methods: {
-    toYYYYMMDD(date) {
+    toDDMMYYYY(date) {
       const theDate = date ? new Date(date) : new Date();
       const day =
         theDate.getDate() < 10 ? `0${theDate.getDate()}` : theDate.getDate();
@@ -179,32 +148,8 @@ export default {
           : theDate.getMonth() + 1;
       const year = theDate.getFullYear();
 
-      return `${year}-${month}-${day}`;
-    },
-    async updateStaffInfo() {
-      store.action.showLoading();
-      this.successMessage = '';
-      this.errorMessage = '';
-      const response = await fetch(`http://localhost:3000/api/staff/testcampstaff/${this.selectedStaffId}`, {
-        method: "PUT",
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'Application/json'
-        },
-        body: JSON.stringify(this.staffInfo)
-      })
-      if (response.status > 300) {
-        this.errorMessage = await response.text();
-        store.action.hideLoading();
-        return;
-      } else {
-        let data = await response.text();
-        this.successMessage = data;
-        store.action.hideLoading();
-        this.$emit('popup-save');
-      }
-      
+      return `${day}/${month}/${year}`;
     }
-  }
+  },
 };
 </script>

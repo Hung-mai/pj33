@@ -12,6 +12,15 @@ module.exports = {
             res.status(500).send("Internal Server Error")
         }
     },
+    getAllHositals: async(req, res) => {
+        try {
+            const result = await Hospital.getAllHospitals();
+            res.status(200).send(result);
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
     getById: async (req, res) => {
         try {
             const [hospital, nurses, doctors, patients, rooms] = await Promise.all([Hospital.getById(req.params.id), Hospital.countNurses(req.params.id), Hospital.countDoctors(req.params.id), Hospital.countPatients(req.params.id), Hospital.countRooms(req.params.id)]);

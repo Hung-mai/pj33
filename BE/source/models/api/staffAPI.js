@@ -31,10 +31,15 @@ staffAPI.get('/', staffController.getStaffList)
         staffInfoValidate.checkValidAddInfoFromAdmin, // Kiểm tra nội dung cụ thể
         staffController.addStaff)
     .post('/hospitaladmin', authorizeMiddleware.isHospitalAdmin,
-        staffInfoValidate.checkValidAddInfoFromHospitalAdmin,
         staffInfoValidate.emptyValidate,
+        staffInfoValidate.checkValidAddInfoFromHospitalAdmin,
         staffController.addStaff
     )
+    // .post('/testcampstaff', authorizeMiddleware.isTestcampStaff,
+    //     staffInfoValidate.emptyValidate,
+    //     staffInfoValidate.testcampStaffFiller,
+    //     staffController.addStaff
+    // )
     .put('/admin/:id', authorizeMiddleware.isAdmin,
         staffInfoValidate.emptyValidate,
         staffInfoValidate.checkValidUpdateInfoFromHospitalAdmin,
@@ -45,6 +50,12 @@ staffAPI.get('/', staffController.getStaffList)
         staffInfoValidate.checkValidUpdateInfoFromHospitalAdmin,
         staffController.updateStaff
     )
+    // .put('/testcampstaff/:id',
+    //     authorizeMiddleware.isTestcampStaff,
+    //     staffInfoValidate.emptyValidate,
+    //     staffInfoValidate.testcampStaffFiller,
+    //     staffController.updateStaff
+    // )
     .delete('/:id',
         staffInfoValidate.authorizeDeleteValidate,
         staffInfoValidate.isAssigned,

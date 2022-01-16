@@ -143,5 +143,14 @@ module.exports = {
         let isValid = await Staff.checkSameHospital(req.body.staffId, req.body.roomId, req.session.staffId);
         if (isValid) next();
         else res.status(400).send("Không thể giao phòng bệnh cho nhân viên y tế này");
+    },
+
+    /**
+     * Chuyển hospitalId về id của testcamp, vị trí về testcampstaff
+     */
+    testcampStaffFiller: (req, res, next) => {
+        req.body.hospitalId = req.session.hospitalId;
+        req.body.roleId = req.session.roleId;
+        next();
     }
 }
