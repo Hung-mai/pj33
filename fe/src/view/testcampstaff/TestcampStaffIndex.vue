@@ -27,11 +27,11 @@ export default {
       links: [
         {
           name: "Patient",
-          link: "/hospitaladmin/patient",
+          link: "/testcampstaff/patient",
         },
         {
           name: "Staff",
-          link: "/hospitaladmin/staff",
+          link: "/testcampstaff/staff",
         }
       ],
     };
@@ -45,10 +45,9 @@ export default {
         this.$router.push("/login");
       } else {
         if (
-          this.$store.state.user.roleId == 1 &&
-          this.$store.state.user.hospitalId == 1
+          this.$store.state.user.roleId == 4
         ) {
-          this.$router.push("/hospital");
+          this.$router.push("/testcampstaff/patient");
         }
       }
     },

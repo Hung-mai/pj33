@@ -50,3 +50,7 @@
 .btn-i-update {
     background-image: url(../../assets/icons/wrench.svg);
 }
+
+.btn-i-add {
+    background-image: url(../../assets/icons/plus-square.svg);
+}

@@ -34,7 +34,7 @@ export default {
           link: "/hospitaladmin/staff",
         },
         {
-          name: "Testcamp",
+          name: "Room",
           link: "/hospitaladmin/room",
         },
         {
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async getUserInfo() {
-      const result = await this.$storedAction.getUser();
+      const result = await this.$store.action.getUser();
       this.user = this.$store.state.user;
       if (result == false) {
         document.cookie = "";
@@ -59,6 +59,7 @@ export default {
           this.$router.push("/hospitaladmin/patient");
           this.$router.push("/hospitaladmin/patient-queue");
         }
+        this.$router.push("/hospitaladmin/staff");
       }
     },
   },

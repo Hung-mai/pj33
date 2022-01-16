@@ -43,7 +43,7 @@ module.exports = {
     },
     updateRoom: async (req, res) => {
         try {
-            let result = await Room.updateRoom(req.params.id, req.params.roomNumber, req.params.beds);
+            let result = await Room.updateRoom(req.params.id, req.params.roomNumber, req.params.beds, req.session.hospitalId);
             if (result.affecedRows < 1) {
                 res.status(200).send("Sửa thất bại");
             } else {
@@ -62,6 +62,15 @@ module.exports = {
             } else {
                 res.status(201).send("Xóa thành công");
             } 
+        } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server Error");
+        }
+    },
+    getRoomsStaffNotAssigned: async (req, res) => {
+        try {
+            let result = await Room.getRoomsStaffNotAssigned(req.params.staffId, req.params.hospitalId);
+            res.status(200).send(result);
         } catch (error) {
             console.log(error);
             res.status(500).send("Internal Server Error");

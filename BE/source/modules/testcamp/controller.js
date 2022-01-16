@@ -7,7 +7,7 @@ const toSQLDate = require('../../utils/toSQLDate');
 
 module.exports = {
     getAll: (req, res) => {
-        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.testcamp`;
+        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital WHERE type = 2`;
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);
@@ -16,7 +16,7 @@ module.exports = {
         })
     },
     getById: (req, res) => {
-        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.testcamp WHERE campId = ${req.params.id}`;
+        let query = `SELECT * FROM ${process.env.DB_NAME || "project3"}.hospital WHERE hospitalId = ${req.params.id}`;
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);
@@ -25,7 +25,7 @@ module.exports = {
         })
     },
     update: (req, res) => {
-        let query = `UPDATE ${process.env.DB_NAME || "project3"}.testcamp SET address = '${req.body.address}' WHERE (campId = ${req.params.id})`;
+        let query = `UPDATE ${process.env.DB_NAME || "project3"}.hospital SET address = '${req.body.address}', name = '${req.body.name}' WHERE (hospitalId = ${req.params.id})`;
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);
@@ -38,7 +38,7 @@ module.exports = {
         })
     },
     store: (req, res) => {
-        let query = `INSERT INTO ${process.env.DB_NAME || "project3"}.testcamp (address) VALUES ('${req.body.address}');`
+        let query = `INSERT INTO ${process.env.DB_NAME || "project3"}.hospital (name, address, type) VALUES ('${req.body.name}', '${req.body.address}', 2);`
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);
@@ -51,7 +51,7 @@ module.exports = {
         })
     },
     delete: (req, res) => {
-        let query = `DELETE FROM ${process.env.DB_NAME || "project3"}.testcamp WHERE (campId = ${req.params.id})`;
+        let query = `DELETE FROM ${process.env.DB_NAME || "project3"}.hospital WHERE (hospitalId = ${req.params.id})`;
         db.query(query, (error, response) => {
             if (error) {
                 res.status(400).send(error);

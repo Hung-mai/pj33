@@ -10,7 +10,7 @@ module.exports = function (app) {
 
     // Định tuyến
     app.use('/login', authorizeRouter)
-        .use(authorizeMiddleware)
+        .use(authorizeMiddleware.isLoggedIn)
         .use('/api', api)
         .use('/', express.static(path.resolve(__dirname, '../../../fe/dist')))
         .use((req, res) => {

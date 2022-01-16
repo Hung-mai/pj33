@@ -136,7 +136,7 @@
 import {store} from '../../../script/store';
 
 export default {
-  name: "StaffInfoPopup",
+  name: "AdminStaffInfoPopup",
   props: ["show", "hospitalList", "roleList", "selectedStaffId"],
   data() {
     return {

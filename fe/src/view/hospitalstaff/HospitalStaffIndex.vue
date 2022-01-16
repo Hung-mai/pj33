@@ -59,6 +59,7 @@ export default {
           this.$router.push("/hospitalstaff/patient");
           this.$router.push("/hospitalstaff/patient-queue");
         }
+        this.$router.push("/hospitalstaff/patient");
       }
     },
   },

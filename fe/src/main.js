@@ -3,7 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import Notifications from 'vue-notification'
 import 'bootstrap'
-import {store} from './script/store';
+import { store } from './script/store';
 
 // import Index from './view/index/Index.vue';
 import Login from './view/login/Login.vue';
@@ -17,6 +17,12 @@ import AdminHospital from './view/admin/hospital/AdminHospital.vue';
 import AdminStaff from './view/admin/staff/AdminStaff.vue';
 import AdminTestcamp from './view/admin/testcamp/AdminTestcamp.vue';
 import AdminPatient from './view/admin/patient/AdminPatient.vue';
+
+import HospitalAdminStaff from './view/hospitaladmin/staff/HospitalAdminStaff.vue';
+import HospitalAdminRoom from './view/hospitaladmin/room/HospitalAdminRoom.vue';
+
+import testcampstaffPatient from './view/testcampstaff/patient/testcampstaffPatient.vue';
+import testcampstaffStaff from './view/testcampstaff/staff/testcampstaffStaff.vue';
 
 import HospitalAdminPatient from './view/hospitaladmin/patient/HospitalAdminPatient.vue';
 import HospitalAdminPatientQueue from './view/hospitaladmin/patient-queue/HospitalAdminPatientQueue.vue';
@@ -62,6 +68,14 @@ const routes = [
     component: HospitalAdminIndex,
     children: [
       {
+        path: '/hospitaladmin/staff',
+        component: HospitalAdminStaff
+      },
+      {
+        path: '/hospitaladmin/room',
+        component: HospitalAdminRoom
+      },
+      {
         path: "/hospitaladmin/patient",
         component: HospitalAdminPatient,
       },
@@ -87,12 +101,22 @@ const routes = [
   },
   {
     path: '/testcampstaff',
-    component: TestcampStaffIndex
+    component: TestcampStaffIndex,
+    children: [
+      {
+        path: '/testcampstaff/patient',
+        component: testcampstaffPatient
+      },
+      {
+        path: '/testcampstaff/staff',
+        component: testcampstaffStaff
+      }
+    ]
   },
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: '/login'
-  // }
+  {
+    path: '/',
+    redirect: '/login'
+  }
 ]
 
 const router = new VueRouter({

@@ -84,8 +84,14 @@ export default {
         });
         if (response.status == 200) {
           store.state.user = await response.json();
-          if (store.state.user.roleId == 0) {
+          if (store.state.user.roleId == 1) {
             this.$router.push('/admin/staff');
+          } else if (store.state.user.roleId == 5) {
+            this.$router.push('/hospitaladmin/staff');
+          } else if (store.state.user.roleId == 4) {
+            this.$router.push('/testcampstaff');
+          } else if (store.state.user.roleId == 2 || store.state.user.roleId == 3) {
+            this.$router.push('/hospitalstaff')
           }
           
         } else {

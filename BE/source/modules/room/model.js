@@ -17,11 +17,28 @@ class Room {
         return await db.queryDB(query);
     }
 
+    static async getRoomsByStaffId(staffId) {
+        let query = `SELECT Room.roomNumber, Room.roomId, Room.hospitalId FROM Room INNER JOIN RoomMaster ON Room.roomId=RoomMaster.roomId INNER JOIN Staff ON Staff.staffId=RoomMaster.staffId WHERE Staff.staffId=${staffId}`;
+        return await db.queryDB(query);
+    }
+
     static async getRoomDetailsById(roomId, hospitalId) {
         let query = `SELECT * FROM Room WHERE roomId=${roomId} AND hospitalId=${hospitalId}`;
         let result = await db.queryDB(query);
+        let patients = await Room.countPatients(roomId);
         if (result.length < 0) return null;
-        else return result[0];
+        else {
+            let finalResult = result[0];
+            finalResult.patients = patients;
+            return finalResult;
+        }
+    }
+
+    static async checkDuplicateRoomNumber(roomNumber, hospitalId) {
+        let query = `SELECT * FROM Room WHERE roomNumber=${roomNumber} AND hospitalId=${hospitalId}`;
+        let result = await db.queryDB(query);
+        if (result.length > 0) return true;
+        else return false;
     }
 
     static async addRoomToHospital(roomNumber, beds, hospitalId) {
@@ -29,13 +46,16 @@ class Room {
         return await db.queryDB(query);
     }
 
-    static async updateRoom(roomId, roomNumber, beds) {
-        let query = `UPDATE Room SET roomNumber=${roomNumber}, beds=${beds} WHERE roomId=${roomId}`;
+    static async updateRoom(roomId, roomNumber, beds, hospitalId) {
+        let query = `UPDATE Room SET roomNumber=${roomNumber}, beds=${beds} WHERE roomId=${roomId} AND hospitalId=${hospitalId}`;
         return await db.queryDB(query);
     } 
 
     static async deleteRoom(roomId) {
         let query = `DELETE FROM Room WHERE roomId=${roomId}`;
+        // Delete all relationship with staff
+        let queryDeleteRoomFromRoomMaster = `DELETE FROM RoomMaster WHERE roomId=${roomId}`;
+        await db.queryDB(queryDeleteRoomFromRoomMaster);
         return await db.queryDB(query);
     }
 
@@ -44,6 +64,24 @@ class Room {
         let result = await db.queryDB(query);
         if (result.length == 0) throw new Error("Không tìm thấy phòng");
         else return result[0].PatientCount;
+    }
+
+    static async countBeds(roomId) {
+        let query = `SELECT * FROM Room WHERE RoomId=${roomId}`;
+        let result = await db.queryDB(query);
+        if (result.length == 0) throw new Error("Không tìm thấy phòng");
+        else return result[0].beds;
+    }
+
+    static async checkFull(roomId) {
+        let [beds, patients] = await Promise.all([Room.countBeds(roomId), Room.countPatients(roomId)]);
+        if (beds >= patients) return true;
+        else return false;
+    }
+
+    static async getRoomsStaffNotAssigned(staffId, hospitalId) {
+        let query = `SELECT Room.roomId, Room.roomNumber FROM Room WHERE hospitalId=${hospitalId} AND Room.roomId NOT IN (SELECT Room.roomId FROM Room INNER JOIN RoomMaster ON Room.roomId=RoomMaster.roomId WHERE RoomMaster.staffId=${staffId})`;
+        return await db.queryDB(query);
     }
 }
 

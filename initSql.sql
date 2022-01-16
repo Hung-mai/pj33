@@ -10,7 +10,8 @@ CREATE TABLE Hospital (
 );
 
 INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('1', 'Sở y tế', 'Hà Nội', 0);
-INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('2', 'Testcamp', 'Hà Nội', 1);
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('2', 'Testcamp', 'Hà Nội', 2);
+INSERT INTO `project3`.`hospital` (`hospitalId`, `name`, `address`, `type`) VALUES ('3', 'Bệnh viện Bạch Mai', 'Bạch Main', 1);
 
 CREATE TABLE Role (
     roleId int NOT NULL AUTO_INCREMENT,
@@ -40,10 +41,10 @@ CREATE TABLE Staff (
 );
 
 INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '1', 'Nguyễn Văn A', '000', '1988-02-03', '1', '1', 'Hà Nam');
-INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '2', 'Nguyễn Văn B', '000', '1988-02-03', '2', '2', 'Hà Nam');
-INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '3', 'Nguyễn Văn C', '000', '1988-02-03', '3', '3', 'Hà Nam');
-INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '4', 'Nguyễn Văn D', '000', '1988-02-03', '4', '4', 'Hà Nam');
-INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('1', '5', 'Nguyễn Văn E', '000', '1988-02-03', '5', '5', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('3', '2', 'Nguyễn Văn B', '000', '1988-02-03', '2', '2', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('3', '3', 'Nguyễn Văn C', '000', '1988-02-03', '3', '3', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('2', '4', 'Nguyễn Văn D', '000', '1988-02-03', '4', '4', 'Hà Nam');
+INSERT INTO `project3`.`staff` (`hospitalId`, `roleId`, `staffName`, `phone`, `dob`, `username`, `password`, `address`) VALUES ('3', '5', 'Nguyễn Văn E', '000', '1988-02-03', '5', '5', 'Hà Nam');
 
 CREATE TABLE Room (
     roomId int NOT NULL AUTO_INCREMENT,

@@ -75,7 +75,7 @@
                 <tr>
                   <th>ID Nhân viên</th>
                   <th>Tên nhân viên</th>
-                  <th>Cơ sở</th>
+                  <th>Bệnh viện</th>
                   <th>Vị trí</th>
                   <th>Số điện thoại</th>
                   <th>Lựa chọn</th>
@@ -85,8 +85,8 @@
                 <tr v-for="staff in staffList" :key="staff.staffId">
                   <td>{{ staff.staffId }}</td>
                   <td>{{ staff.staffName }}</td>
-                  <td>{{ staff.hospitalName }}</td>
                   <td>{{ staff.roleName }}</td>
+                  <td>{{ staff.hospitalName }}</td>
                   <td>{{ staff.phone }}</td>
                   <td>
                     <button
@@ -233,7 +233,7 @@
       <!------ Edit Department Modal Start ---------->
     </div>
     <!-----------  Content Menu Tab Ends   ------------>
-    <admin-staff-info-popup
+    <testcampstaffStaffInfoPopup
       :show="staffInfoPopupShow"
       :selectedStaffId="selectedStaffId"
       :hospitalList="hospitalList"
@@ -243,20 +243,20 @@
         staffInfoPopupShow = false;
       "
       @popup-save="getStaffList()"
-    ></admin-staff-info-popup>
+    ></testcampstaffStaffInfoPopup>
     <!----------------   Modal ends here  --------------->
   </div>
 </template>
 
 <script>
 import { store } from "../../../script/store";
-import AdminStaffInfoPopup from "./AdminStaffInfoPopup.vue";
+import testcampstaffStaffInfoPopup from "./testcampstaffStaffInfoPopup.vue";
 
 export default {
   name: "AdminStaff",
   props: ['user'],
   components: {
-    AdminStaffInfoPopup,
+    testcampstaffStaffInfoPopup,
   },
   data() {
     return {
@@ -331,7 +331,7 @@ export default {
       store.action.showLoading();
       this.successMessage = "";
       this.errorMessage = "";
-      const response = await fetch(`http://localhost:3000/api/staff/admin`, {
+      const response = await fetch(`http://localhost:3000/api/staff`, {
         credentials: "include",
         method: "POST",
         headers: {
