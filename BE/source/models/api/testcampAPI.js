@@ -7,6 +7,6 @@ testcampAPI.get('/', testcampController.getAll)
     .get('/:id', testcampController.getById)
     .post('/', testcampValidate.emptyValidate, testcampController.store)
     .put('/:id', testcampValidate.emptyValidate, testcampController.update)
-    .delete('/:id', testcampController.delete);
+    .delete('/:id', testcampValidate.checkStillHasStaff, testcampController.delete);
 
 module.exports = testcampAPI;

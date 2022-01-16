@@ -72,13 +72,13 @@
                             data-bs-target="#myTestcampModal"
                             @click="
                                 testcampInfoPopupShow = true;
-                                selectedTestcampId = testcamp.campId;
+                                selectedTestcampId = testcamp.hospitalId;
                             "
                         ></button>
                         <button
                             href="#"
                             class="btn btn-danger btn-i btn-i-delete"
-                            @click="deleteTestcamp(testcamp.campId)"
+                            @click="deleteTestcamp(testcamp.hospitalId)"
                         >
                         </button>
                     </td>
@@ -210,6 +210,14 @@ export default {
             if (response.status != 200) {
                 const data = await response.text();
                 console.log(data);
+
+                Vue.notify({
+                    group: 'foo',
+                    title: 'Thất bại!',
+                    text: 'Bệnh viện vẫn còn nhân viên, không thể xóa',
+                    type: "error",
+                })
+
             }
             await this.getTestcampList();
         },
