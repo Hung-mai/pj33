@@ -17,7 +17,7 @@
           >
             Danh sách bệnh nhân
           </button>
-          <button
+          <!-- <button
               class="nav-link"
               id="nav-addhospital-tab"
               data-bs-toggle="tab"
@@ -27,7 +27,7 @@
               @click="tableShow = false"
           >
             Thêm bệnh nhân
-          </button>
+          </button> -->
         </div>
       </nav>
 
@@ -78,7 +78,7 @@
                         patientInfoPopup = true;
                       "
                   ></button>
-                  <button
+                  <!-- <button
                       type="button"
                       class="btn btn-primary btn-i btn-i-update me-2"
                       data-bs-toggle="modal"
@@ -91,7 +91,7 @@
                   <button
                       class="btn btn-danger btn-i btn-i-delete"
                       @click="deletePatient(patient.patientId)"
-                  ></button>
+                  ></button> -->
                 </td>
               </tr>
               </tbody>
