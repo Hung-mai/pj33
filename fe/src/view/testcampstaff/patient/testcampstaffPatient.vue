@@ -7,7 +7,7 @@
     <div class="content-body">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button
+          <!-- <button
               class="nav-link active"
               data-bs-toggle="tab"
               data-bs-target="#nav-hospitallist"
@@ -16,7 +16,7 @@
               @click="tableShow = true"
           >
             Danh sách bệnh nhân
-          </button>
+          </button> -->
           <button
               class="nav-link"
               id="nav-addhospital-tab"
@@ -34,7 +34,7 @@
       <div class="tab-content">
         <!----------------   Display Department Data List start   --------------->
 
-        <div
+        <!-- <div
             id="nav-hospitallist"
             class="tab-pane fade show active staff-list"
             v-show="tableShow"
@@ -97,7 +97,7 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> -->
         <!----------------   Display Department Data List ends   --------------->
 
         <!----------------   Add Department Start   --------------->
@@ -195,7 +195,7 @@
                     >Hospital Name:
                     </label>
                     <select
-                        v-model="patientInfo.hospitalName"
+                        v-model="patientInfo.afterId"
                         type="text"
                         class="m-input m-col-9"
                     >
@@ -209,6 +209,16 @@
                     </select>
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
+                    <label for="inpDoB" class="m-label m-col m-col-3 m-auto"
+                    >Ngày ghi nhận:
+                    </label>
+                    <input
+                        v-model="patientInfo.leaveDate"
+                        type="date"
+                        class=" m-col-9"
+                    />
+                  </div>
+                  <!-- <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpRoomId" class="m-label m-col m-col-3 m-auto"
                     >Room Number:
                     </label>
@@ -247,7 +257,7 @@
                         type="text"
                         class=" m-col-9"
                     />
-                  </div>
+                  </div> -->
                   <span class="m-label-error" v-show="errorMessage != ''">{{
                       errorMessage
                     }}</span>
@@ -261,7 +271,7 @@
                         class="btn btn-primary"
                         @click="
                         $event.preventDefault();
-                        addPatient();
+                        addTransferRequest();
                       "
                     >
                       Add Patient
@@ -302,24 +312,20 @@ export default {
   },
   data() {
     return {
-      tableShow: true,
+      tableShow: false,
       patientInfo: {
         // patientId: "",
         patientName: "",
-        roomId: "1",
-        roomNumber: "",
         phone: "",
         address: "",
         sex: "",
-        level: 5,
-        startTime: "",
         dob: "",
         identifyNumber: "",
         healthInsuranceNumber: "",
-        hospitalId: 1,
-        hospitalName: "",
         beforeId: "",
         afterId: "",
+        leaveDate: "",
+        status: "0",
       },
       errorMessage: "",
       successMessage: "",
@@ -348,11 +354,12 @@ export default {
     },
   },
   methods: {
-    async addPatient() {
+    async addTransferRequest() {
       store.action.showLoading();
       this.successMessage = "";
       this.errorMessage = "";
-      const response = await fetch(`http://localhost:3000/api/patient`, {
+      this.patientInfo.beforeId = this.$store.state.user.hospitalId;
+      const response = await fetch(`http://localhost:3000/api/patient/transfer`, {
         credentials: "include",
         method: "POST",
         headers: {

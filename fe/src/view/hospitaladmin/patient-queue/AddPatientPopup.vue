@@ -106,7 +106,7 @@
                         class=" m-col-9"
                     />
                   </div>
-                  <div class="m-row w-100 justify-content-center mb-2">
+                  <!-- <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpRoomId" class="m-label m-col m-col-3 m-auto"
                     >Room Number:
                     </label>
@@ -116,6 +116,24 @@
                         name="hospitalName"
                         class="m-input m-col-9"
                     />
+                  </div> -->
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label for="inpHospitalName" class="m-label m-col m-col-3 m-auto"
+                    >Room Number:
+                    </label>
+                    <select
+                        v-model="patientInfo.roomId"
+                        type="text"
+                        class="m-input m-col-9"
+                    >
+                      <option
+                          v-for="room in roomsList"
+                          :value="room.roomId"
+                          :key="room.roomId"
+                      >
+                        {{ room.roomNumber }}
+                      </option>
+                    </select>
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpDoB" class="m-label m-col m-col-3 m-auto"
@@ -172,7 +190,7 @@ export default {
     return {
       patientInfo: {
         patientName: "",
-        roomId: "1",
+        roomId: "",
         phone: "",
         address: "",
         sex: "",
@@ -222,11 +240,11 @@ export default {
       return `${year}-${month}-${day}`;
     },
     async getRoomsList() {
-      let response = await fetch(`http://localhost:3000/api/room`, {
-          credentials: 'include'
-      })
-      let rooms = await response.json();
-      console.log(rooms)
+      const response = await fetch(`http://localhost:3000/api/room`, {
+        credentials: "include",
+      });
+      this.roomsList = await response.json();
+      console.log(this.roomsList)
       // this.roomsList = await this.$storedAction.getHospitalList();
     },
     async addPatient() {
