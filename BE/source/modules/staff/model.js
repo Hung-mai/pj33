@@ -80,7 +80,6 @@ class Staff {
 
     static async delete(staffId) {
         let query = `DELETE FROM staff WHERE staffId=${staffId}`;
-        await db.queryDB(queryDeleteStaffInRoomMaster);
         return await db.queryDB(query);
     }
 

@@ -5,7 +5,6 @@ const { Role, hospitalType } = require('../../public/enum');
 
 module.exports = {
     emptyValidate: (req, res, next) => {
-        console.log(req.body);
         if (!req.body || !req.body.hospitalId ||
             !req.body.staffName ||
             !req.body.phone ||
@@ -70,6 +69,8 @@ module.exports = {
             if (oldRecord[0].roleId == Role.admin || oldRecord[0].roleId == Role.testcampstaff) {
                 req.body.roleId = oldRecord[0].roleId;
                 next();
+            } else if ((oldRecord[0].roleId == Role.doctor || oldRecord[0].roleId == Role.nurse) && (oldRecord[0].rooms.length > 0) && (req.body.roleId != Role.doctor && req.body.roleId != Role.nurse)) {
+                res.status(400).send("Nhân viên này đang quản lý phòng bệnh, không thể chuyển sang vị trí yêu cầu");                
             } else {
                 if (req.body.roleId == Role.admin || req.body.roleId == Role.testcampstaff) {
                     res.status(400).send("Vị trí không hợp lệ");
