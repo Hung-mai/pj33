@@ -51,16 +51,14 @@
                 <tr>
                   <th>Mã bệnh viện</th>
                   <th>Tên bệnh viện</th>
-                  <th>Số phòng</th>
                   <th>Địa chỉ</th>
                   <th>Chức năng</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="hospital in hospitalList" :key="hospital.hospitalId">
+                <tr v-for="hospital in displayHospitalList" :key="hospital.hospitalId">
                   <td>{{ hospital.hospitalId }}</td>
                   <td>{{ hospital.name }}</td>
-                  <td>{{ hospital.rooms }}</td>
                   <td>{{ hospital.address }}</td>
                   <td>
                     <button
@@ -170,6 +168,7 @@ export default {
       hospitalInfo: {
         name: "",
         address: "",
+        type: ""
       },
       errorMessage: "",
       successMessage: "",
@@ -177,6 +176,12 @@ export default {
       selectedHospitalId: "",
       hospitalInfoPopupShow: false,
     };
+  },
+  computed: {
+    displayHospitalList() {
+      let result = this.hospitalList.filter(hospital => hospital.hospitalId == 3);
+      return result;
+    }
   },
   methods: {
     async addHospital() {

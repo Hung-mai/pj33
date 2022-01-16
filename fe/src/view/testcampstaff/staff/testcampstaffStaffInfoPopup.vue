@@ -11,7 +11,9 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Thông tin nhân viên y tế</h4>
+          <h4 class="modal-title" id="myModalLabel">
+            Thông tin nhân viên y tế
+          </h4>
           <button
             type="button"
             class="btn-close"
@@ -36,7 +38,7 @@
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpPhone" class="m-label m-col m-col-3 m-auto"
-                      >Phone:
+                      >Số điện thoại:
                     </label>
                     <div class="m-col-9 text-left">
                       {{ staffInfo.phone }}
@@ -70,16 +72,16 @@
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
                     <label class="m-label m-col m-col-3 m-auto"
-                      >Address:
+                      >Địa chỉ:
                     </label>
                     <div name="staffName" class="m-col-9 text-left">
-                      {{staffInfo.address}}
+                      {{ staffInfo.address }}
                     </div>
                   </div>
                 </div>
-                <span class="m-label-error" v-show="errorMessage != ''">{{
-                  errorMessage
-                }}</span>
+                <span class="m-label-error" v-show="errorMessage != ''">
+                  {{ errorMessage }}</span
+                >
                 <span class="m-label-success" v-show="successMessage != ''">{{
                   successMessage
                 }}</span>
@@ -149,7 +151,7 @@ export default {
       const year = theDate.getFullYear();
 
       return `${day}/${month}/${year}`;
-    }
+    },
   },
 };
 </script>

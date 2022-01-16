@@ -42,7 +42,7 @@ staffAPI.get('/', staffController.getStaffList)
     // )
     .put('/admin/:id', authorizeMiddleware.isAdmin,
         staffInfoValidate.emptyValidate,
-        staffInfoValidate.checkValidUpdateInfoFromHospitalAdmin,
+        staffInfoValidate.checkValidUpdateInfoFromAdmin,
         staffController.updateStaff)
     .put('/hospitaladmin/:id',
         authorizeMiddleware.isHospitalAdmin,

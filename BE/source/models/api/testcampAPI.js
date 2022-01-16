@@ -5,8 +5,8 @@ const testcampValidate = require('../../middlewares/testcamp/testcampValidate');
 
 testcampAPI.get('/', testcampController.getAll)
     .get('/:id', testcampController.getById)
-    .post('/', testcampValidate, testcampController.store)
-    .put('/:id', testcampValidate, testcampController.update)
+    .post('/', testcampValidate.emptyValidate, testcampController.store)
+    .put('/:id', testcampValidate.emptyValidate, testcampController.update)
     .delete('/:id', testcampController.delete);
 
 module.exports = testcampAPI;

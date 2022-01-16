@@ -55,14 +55,15 @@
               <thead>
               <tr>
                 <th>ID điểm xét nghiệm</th>
+                <th>Tên điểm xét nghiệm</th>
                 <th>Địa chỉ điểm xét nghiệm</th>
               </tr>
               </thead>
               <tbody v-if="testcampList.length">
-                <tr v-for="testcamp in testcampList" :key="testcamp.id">
-                    <td>{{ testcamp.campId }}</td>
+                <tr v-for="testcamp in testcampList" :key="testcamp.hospitalId">
+                    <td>{{ testcamp.hospitalId }}</td>
+                    <td>{{ testcamp.name }}</td>
                     <td>{{ testcamp.address }}</td>
-                    
                     <td>
                         <button
                             type="button"
@@ -103,7 +104,20 @@
                     <label
                         for="inpPatientName"
                         class="m-label m-col m-col-3 m-auto"
-                    >Testcamp Address
+                    >Tên
+                    </label>
+                    <input
+                        type="text"
+                        id="inpPatientName"
+                        class="m-input m-col-9 m-col"
+                        v-model="newTestcamp.name"
+                    />
+                  </div>
+                  <div class="m-row w-100 justify-content-center mb-2">
+                    <label
+                        for="inpPatientName"
+                        class="m-label m-col m-col-3 m-auto"
+                    >Địa chỉ
                     </label>
                     <input
                         type="text"
@@ -170,7 +184,8 @@ export default {
             tableShow: true,
             testcampList: [],
             newTestcamp:{
-                address: ""
+                address: "",
+                name: ""
             },
             testcampInfoPopupShow: false,
             selectedTestcampId: "",
