@@ -9,7 +9,17 @@
     <div class="m-col m-col-3 d-flex">
       <div class="m-row name align-items-center">
         <div>{{ storedState.user.staffName }}</div>
-        <button class="m-btn btn-danger" @click="logout()">Log out</button>
+        <!-- <button class="m-btn btn-danger" @click="logout()">Log out</button> -->
+        <div class="dropdown position-absolute top-1 end-0 mx-5">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" @click="logout()" href="#">Logout</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+            </ul>
+        </div>
       </div>
     </div>
   </div>
