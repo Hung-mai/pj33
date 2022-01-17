@@ -295,6 +295,7 @@ export default {
       successMessage: "",
       hospitalList: [],
       patientList: [],
+      roomList: [],
       selectedPatientId: "",
       patientInfoPopup: false,
       medicalRecordPopUp: false,
@@ -341,7 +342,14 @@ export default {
       store.action.hideLoading();
     },
     async getPatientList() {
-      this.patientList = await this.$store.action.getPatientList();
+      const allPatient = await this.$store.action.getPatientList();
+      const staffPatient = [];
+      allPatient.map((patient) => {
+        if(this.$store.state.user.rooms.includes(patient.roomId)) {
+          staffPatient.push(patient);
+        }
+      });
+      this.patientList = staffPatient;
     },
     async getHospitalList() {
       this.hospitalList = await this.$storedAction.getHospitalList();
@@ -365,7 +373,7 @@ export default {
   },
   created() {
     this.getPatientList();
-    this.getHospitalList()
+    this.getHospitalList();
   },
 };
 </script>

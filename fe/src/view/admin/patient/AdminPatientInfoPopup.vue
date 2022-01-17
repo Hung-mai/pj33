@@ -12,7 +12,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel">
-            Edit Patient Information
+            Patient Information
           </h4>
           <button
               type="button"
@@ -87,7 +87,7 @@
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpHealthInsuranceNumber" class="m-label m-col m-col-3 m-auto"
-                    >Identify Number:
+                    >Heal Insurance Number:
                     </label>
                     <input
                         v-model="patientInfo.healthInsuranceNumber"
@@ -108,6 +108,17 @@
                     />
                   </div>
                   <div class="m-row w-100 justify-content-center mb-2">
+                    <label for="inpHealthInsuranceNumber" class="m-label m-col m-col-3 m-auto"
+                    >Sex:
+                    </label>
+                    <input
+                        v-model="patientInfo.sex"
+                        type="text"
+                        name="hospitalName"
+                        class="m-input m-col-9 m-col"
+                    />
+                  </div>
+                  <!-- <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpHospitalName" class="m-label m-col m-col-3 m-auto"
                     >Hospital Name:
                     </label>
@@ -124,8 +135,19 @@
                         {{ hospital.name }}
                       </option>
                     </select>
-                  </div>
+                  </div> -->
                   <div class="m-row w-100 justify-content-center mb-2">
+                    <label for="inpHealthInsuranceNumber" class="m-label m-col m-col-3 m-auto"
+                    >Hospital Name:
+                    </label>
+                    <input
+                        v-model="patientInfo.hospitalName"
+                        type="text"
+                        name="hospitalName"
+                        class="m-input m-col-9 m-col"
+                    />
+                  </div>
+                  <!-- <div class="m-row w-100 justify-content-center mb-2">
                     <label for="inpRoomId" class="m-label m-col m-col-3 m-auto"
                     >Room Number:
                     </label>
@@ -135,7 +157,7 @@
                         name="hospitalName"
                         class="m-input m-col-9"
                     />
-                  </div>
+                  </div> -->
 
                 </div>
               </div>
@@ -148,7 +170,7 @@
               }}</span>
             <div class="form-group">
               <div class="modal-footer">
-                <button
+                <!-- <button
                     type="button"
                     class="btn btn-default"
                     data-bs-dismiss="modal"
@@ -161,7 +183,7 @@
                     @click="updatePatientInfo()"
                 >
                   Cập nhật
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -212,7 +234,20 @@ export default {
         );
         this.patientInfo = await response.json();
         this.patientInfo = this.patientInfo[0];
-        this.patientInfo.dob = this.toYYYYMMDD(this.patientInfo.dob);
+        console.log(this.patientInfo);
+        const hospitalResponse = await fetch(
+            `http://localhost:3000/api/hospital/${this.patientInfo.hospitalId}`,
+            {
+              credentials: "include",
+            }
+        );
+        const hospital = await hospitalResponse.json();
+
+        this.patientInfo.hospitalName = hospital.name;
+        this.patientInfo.dob = this.toYYYYMMDD(this.patientInfo.dob);        
+        
+        // this.patientInfo = await response.json();
+
         store.action.hideLoading();
       }
     },
