@@ -70,7 +70,7 @@ module.exports = {
                 req.body.roleId = oldRecord[0].roleId;
                 next();
             } else if ((oldRecord[0].roleId == Role.doctor || oldRecord[0].roleId == Role.nurse) && (oldRecord[0].rooms.length > 0) && (req.body.roleId != Role.doctor && req.body.roleId != Role.nurse)) {
-                res.status(400).send("Nhân viên này đang quản lý phòng bệnh, không thể chuyển sang vị trí yêu cầu");                
+                res.status(400).send("Nhân viên này đang quản lý phòng bệnh, không thể chuyển sang vị trí yêu cầu");
             } else {
                 if (req.body.roleId == Role.admin || req.body.roleId == Role.testcampstaff) {
                     res.status(400).send("Vị trí không hợp lệ");
@@ -117,9 +117,13 @@ module.exports = {
      * @param {*} next 
      */
     checkValidUpdateInfoFromHospitalAdmin: async (req, res, next) => {
+        let rooms = await Room.getRoomsByStaffId(req.params.id);
+        let oldRecord = await Staff.getOneById(req.params.id);
         if (req.body.hospitalId != req.session.hospitalId) res.status(400).send("Không thể chuyển nhân viên y tế sang bệnh viên khác, chỉ nhân viên sở y tế mới có thể");
         else if (req.body.roleId == Role.testcampstaff || req.body.roleId == Role.admin) {
             res.status(400).send("Vị trí của nhân viên y tế phải là quản lý bệnh viện, y tá hoặc bác sĩ");
+        } else if (rooms.length > 0 && (req.body.roleId != Role.doctor && req.body.roleId != Role.nurse)) {
+            res.status(400).send("Nhân viên đang phụ trách phòng bệnh, không thể chuyển vai trò");
         } else next();
     },
 

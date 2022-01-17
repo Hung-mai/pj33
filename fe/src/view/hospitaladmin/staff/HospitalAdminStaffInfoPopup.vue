@@ -185,12 +185,7 @@ export default {
   },
   computed: {
     hospitalName() {
-      let result = "";
-      for (const hospital of this.hospitalList) {
-        if (hospital.hospitalId == this.staffInfo.hospitalId)
-          return hospital.name;
-      }
-      return result;
+      return this.$store.state.user.hospitalName;
     },
     roleList() {
       return [

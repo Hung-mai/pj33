@@ -31,8 +31,8 @@
             role="tab"
             @click="
               tableShow = false;
-              staffInfo.hospitalId = hospitalList[0].hospitalId;
-              staffInfo.roleId = roleList[0].roleId;
+              staffInfo.hospitalId = user.hospitalId;
+              staffInfo.roleId = normalizedRoleList[0].roleId;
             "
           >
             Thêm nhân viên
@@ -226,7 +226,6 @@
       :show="staffInfoPopupShow"
       :selectedStaffId="selectedStaffId"
       :hospitalList="hospitalList"
-      :roleList="roleList"
       @show-add-room="
         addRoomPopupShow = true;
         staffInfoPopupShow = false;
